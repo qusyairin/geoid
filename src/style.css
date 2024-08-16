@@ -1,0 +1,174 @@
+.landing{
+    background-image: url("./assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page {
+    background-image: url("./assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 95vh;
+}
+
+.login-menu {
+    /* Box styling */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    width: 300px; /* Set a fixed width for the login box */
+    text-align: center;
+    font-family: Arial, sans-serif; /* Set a default font */
+}
+
+.login-menu div {
+    margin-top: 10px; /* Spacing between elements inside the login menu */
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 0;
+    z-index: 1000; /* Ensure it stays on top */
+    border-bottom: 2px solid #2A9D8F; /* Add a red border at the bottom */
+}
+
+.input {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items to the left */
+    max-width: 1200px; /* You can adjust this width */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 20px; /* Add space between the logo and the home link */
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.login-button {
+    margin-left: auto;
+}
+
+.login-button button {
+    background-color: #2A9D8F;
+    border: 1px solid #2A9D8F;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 10rem;
+}
+
+.login-button button:hover {
+    background-color: #2a9d9089;
+}
+
+.reset-button {
+    margin-left: auto;
+}
+
+.reset-button button {
+    background-color: #064E45;
+    border: 1px solid #064E45;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 10rem;
+}
+
+.reset-button button:hover {
+    background-color: #13433e89;
+}
+
+.title{
+    color: white;
+    font-size: 7.5rem;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+}
+
+.search-bar input {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 50px 0 0 50px;
+    width: 50rem;
+}
+  
+.search-button {
+    padding: 0.72rem;
+    background-color: white;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    cursor: pointer;
+}
+
+.circle {
+    background-color: #d83b01;
+    border-radius: 50%;
+    color: #fff;
+    height: 2.5em;
+    position: relative;
+    width: 2.5em;
+  
+    border: 1px solid transparent;
+  }
+  
+  .circleText {
+    text-align: center;
+    height: 50%;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+
+.dropdown {
+    width: 10rem;
+    padding: 10px;
+    border-radius: 10px;
+}
