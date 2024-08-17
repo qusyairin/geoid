@@ -1,7 +1,10 @@
 import './App.css';
+import Artifacts from './components/Artifacts';
 import Home from './components/Home';
 import Landing from './components/Landing';
 import Login from './components/Login';
+import Profile from './components/Profile';
+import Upload from './components/Upload';
 
 function App() {
   return (
@@ -20,7 +23,7 @@ function App() {
               </div>
           </div>
       </header>
-      <Login/>
+      <Artifacts/>
     </div>
   );
 }
