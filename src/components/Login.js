@@ -1,6 +1,9 @@
 import '../style.css'
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate();
+
     return(
         <div className='login-page'>
             <div className='login-menu'>
@@ -11,7 +14,7 @@ function Login() {
                 <div className="login-button" style={{ marginTop: '20px', width: '100%'}}>
                   <button style={{width: '100%'}}>Log In</button>
                  </div>
-                 <span style={{marginTop: '20px', color: '#2A9D8F', cursor: 'pointer'}}>Register new account</span>
+                 <span onClick={() => navigate('/register')} style={{marginTop: '20px', color: '#2A9D8F', cursor: 'pointer'}}>Register new account</span>
             </div>
         </div>
     )

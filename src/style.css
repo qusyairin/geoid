@@ -420,17 +420,24 @@
     margin-bottom: 20px;
 }
 
+.navbarItem{
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.602) !important;
+}
+
+.navbarItem:hover{
+    color: #21867a !important;
+}
+
 .search-bar {
     width: 100rem;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 4px 0 0 4px;
     outline: none;
 }
 
 .search-button {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 11.5px;
     border-radius: 0 4px 4px 0;
     cursor: pointer;
 }
