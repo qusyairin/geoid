@@ -9,6 +9,9 @@ import Landing from './components/Landing';
 import NavBar from './components/NavBar';
 import Register from './components/Register';
 import NotFound from './components/NotFound';
+import Multimedia from './components/Multimedia';
+import Service from './components/Service';
+import Report from './components/Report';
 
 function App() {
 
@@ -23,7 +26,10 @@ function App() {
         <Route path="/model" element={<Artifacts />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Landing />} />
+        <Route path="/multimedia" element={<Multimedia/>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/service-training" element={<Service />} />
+        <Route path="/reports" element={<Report />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

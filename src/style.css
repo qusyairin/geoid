@@ -488,6 +488,25 @@
     margin: 10px 0;
 }
 
+.multimedia-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.multimedia-card:hover {
+    transform: translateY(-5px);
+}
+
+.multimedia-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .view-button {
     padding: 10px 15px;
     background-color: #2A9D8F;
@@ -524,3 +543,47 @@
 .artifacts-page::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.report-page {
+    padding: 20px;
+    background-color: #F5F7FA;
+}
+
+.reports-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between report cards */
+}
+
+.report-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.report-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.report-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.report-tags {
+    display: flex;
+    gap: 10px;
+}
+
+.report-tag {
+    background-color: #2A9D8F;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.875rem;
+}
+

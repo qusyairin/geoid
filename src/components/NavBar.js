@@ -11,10 +11,10 @@ function NavBar() {
         <div className="logo">GeoID</div>
         <nav className="nav-links">
           <a className="navbarItem" onClick={() => navigate("/home")}>Home</a>
-          <a className="navbarItem" onClick={() => navigate("/home")}>Reports</a>
+          <a className="navbarItem" onClick={() => navigate("/reports")}>Reports</a>
           <a className="navbarItem" onClick={() => navigate("/model")}>Model</a>
-          <a className="navbarItem" onClick={() => navigate("/home")}>Multimedia</a>
-          <a className="navbarItem" onClick={() => navigate("/home")}>Service/Training</a>
+          <a className="navbarItem" onClick={() => navigate("/multimedia")}>Multimedia</a>
+          <a className="navbarItem" onClick={() => navigate("/service-training")}>Service/Training</a>
         </nav>
         <div className="login-button">
           <span
