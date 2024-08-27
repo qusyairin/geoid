@@ -14,7 +14,7 @@ function Login() {
                 <div className="login-button" style={{ marginTop: '20px', width: '100%'}}>
                   <button style={{width: '100%'}}>Log In</button>
                  </div>
-                 <span onClick={() => navigate('/register')} style={{marginTop: '20px', color: '#2A9D8F', cursor: 'pointer'}}>Register new account</span>
+                 <span onClick={() => navigate('/register')} style={{marginTop: '20px', color: '#2a699d', cursor: 'pointer'}}>Register new account</span>
             </div>
         </div>
     )

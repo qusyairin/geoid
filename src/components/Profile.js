@@ -31,7 +31,7 @@ function Profile() {
                     <input type="text" value="Digital Geoscience Global" readOnly />
                 </div>
                 <div className="form-group">
-                    <label>Location</label>
+                    <label>Address</label>
                     <input type="text" placeholder="" />
                 </div>
                 <div className="form-group">

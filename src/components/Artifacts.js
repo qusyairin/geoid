@@ -21,7 +21,7 @@ function Artifacts() {
 
     return (
         <div className="artifacts-page">
-            <h1>Model</h1>
+            <h1>Models</h1>
             <div className="search-container">
                 <input type="text" placeholder="Search Artifacts" className="search-bar" />
                 <button className="search-button">

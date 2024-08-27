@@ -12,6 +12,7 @@ import NotFound from './components/NotFound';
 import Multimedia from './components/Multimedia';
 import Service from './components/Service';
 import Report from './components/Report';
+import UploadReport from './components/UploadReport';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
+        <Route path="/upload-reports" element={<UploadReport />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
