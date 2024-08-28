@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sandstone with Pyrite
+* source:	https://sketchfab.com/3d-models/sandstone-with-pyrite-ea7f0ba19953475ea4478c36ac363ecd
+* author:	Digital_Geoscience_Global (https://sketchfab.com/Digital_Geoscience_Global)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sandstone with Pyrite" (https://sketchfab.com/3d-models/sandstone-with-pyrite-ea7f0ba19953475ea4478c36ac363ecd) by Digital_Geoscience_Global (https://sketchfab.com/Digital_Geoscience_Global) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

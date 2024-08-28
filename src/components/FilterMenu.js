@@ -14,7 +14,7 @@ function FilterMenu({ onApplyFilter }) {
                 padding: "10px 15px",
                 borderRadius: "8px",
                 boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)",
-                background: "rgba(42, 157, 143, 0.5)",
+                background: "rgba(181, 32, 94, 0.4)",
                 zIndex: 1000,
             }}
         >
@@ -53,7 +53,7 @@ function FilterMenu({ onApplyFilter }) {
                         </label>
                     </div>
 
-                    <div className="apply-button" style={{ marginTop: '20px' }}>
+                    <div className="apply-button" style={{ marginTop: '20px', color: '#b5205e !important' }}>
                         <button onClick={onApplyFilter}>Apply Filter</button>
                     </div>
                 </div>

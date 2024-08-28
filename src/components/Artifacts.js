@@ -1,26 +1,23 @@
 import '../style.css';
 import artifacts1 from '../assets/artifacts1.png';
 import artifacts2 from '../assets/artifacts2.png';
+import { useNavigate } from 'react-router-dom';
 
 function Artifacts() {
+    const navigate = useNavigate( );
+
     const artifacts = [
         {
-            name: "Bako National Park",
-            location: "Kuching, Sarawak",
+            name: "Thinly-bedded sedimentary outcrop (Full Scale)",
+            location: "Pendang, Kedah",
             imgSrc: artifacts1,
             link: "#"
-        },
-        {
-            name: "Granite rocks",
-            location: "Kuantan, Pahang",
-            imgSrc: artifacts2,
-            link: "#"
-        },
+        }
         // ... add more artifacts here
     ];
 
     return (
-        <div className="artifacts-page">
+        <div className="report-page">
             <h1>Models</h1>
             <div className="search-container">
                 <input type="text" placeholder="Search Artifacts" className="search-bar" />
@@ -37,7 +34,7 @@ function Artifacts() {
                         <div className="artifact-info">
                             <h3>{artifact.name}</h3>
                             <p>{artifact.location}</p>
-                            <button className="view-button" onClick={() => window.location.href = artifact.link}>
+                            <button className="view-button" onClick={() => navigate('/model/view-model')}>
                                 View 3D Model >
                             </button>
                         </div>

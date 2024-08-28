@@ -6,6 +6,7 @@ import Artifacts from "./Artifacts";
 import ResultModel from "./ResultModel";
 import ResultButton from "./ResultButton";
 import ResultReport from "./ResultReport";
+import ResultMultimedia from "./ResultMultimedia";
 
 function Home() {
     const mapRef = useRef(null);
@@ -110,13 +111,15 @@ function Home() {
                         boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.2)",
                         padding: "20px",
                         zIndex: 1000,
-                        overflowY: "auto", // Allow scrolling if content overflows
+                        overflowY: "auto",
+                        backgroundColor: '#F5F7FA' // Allow scrolling if content overflows
                     }}
                 >
                     <div>
                         <ResultButton onClose={handleCloseResults} onButtonClick={handleButtonClick} />
                         {currentView === 'model' && <ResultModel />}
                         {currentView === 'reports' && <ResultReport />}
+                        {currentView === 'multimedia' && <ResultMultimedia />}
                     </div>
                 </div>
             )}

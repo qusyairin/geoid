@@ -16,7 +16,7 @@ function AdvancedSearchModal({ isOpen, onClose }) {
 
     return (
         <div className="modal-overlay">
-            <div className="modal-content">
+            <div className="modal-content-adv-search">
                 <h2 style={{ textAlign: 'left' }}>Advanced Search</h2>
                 <form className="advanced-search-form">
                     <div className="form-group">

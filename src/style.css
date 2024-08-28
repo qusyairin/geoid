@@ -118,8 +118,8 @@
 }
 
 .apply-button button {
-    background-color: #2A9D8F;
-    border: 1px solid #2A9D8F;
+    background-color: #b5205e;
+    border: 1px solid #b5205e;
     padding: 8px 16px;
     color: white;
     font-size: 14px;
@@ -129,7 +129,7 @@
 }
 
 .apply-button button:hover {
-    background-color: #2a9d9089;
+    background-color: #7e1641;
 }
 
 .reset-button {
@@ -137,8 +137,8 @@
 }
 
 .reset-button button {
-    background-color: #064E45;
-    border: 1px solid #064E45;
+    background-color: #7e1641;
+    border: 1px solid #7e1641;
     padding: 8px 16px;
     color: white;
     font-size: 14px;
@@ -148,7 +148,7 @@
 }
 
 .reset-button button:hover {
-    background-color: #13433e89;
+    background-color: #510e2a;
 }
 
 .title{
@@ -448,7 +448,8 @@
 }
 
 .artifacts-result-page {
-    max-width: 1200px;
+    /* max-width: 1200px; */
+    padding: 20px;
     margin: 0 auto;
 }
 
@@ -527,27 +528,59 @@
 }
 
 .multimedia-card {
+    position: relative; /* Needed for absolute positioning of the overlay */
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for both transform and shadow */
 }
 
 .multimedia-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px); /* Slightly increased translateY for a more noticeable lift */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .multimedia-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease; /* Smooth image zoom effect */
 }
+
+.multimedia-card:hover .multimedia-image {
+    transform: scale(1.05); /* Slight zoom effect for the image on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for both opacity and transform */
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center; /* Center text horizontally */
+    padding: 10px; /* Optional: add padding for better spacing */
+}
+
+.multimedia-card:hover .overlay {
+    opacity: 1;
+    transform: scale(1); /* Ensure the overlay scale is normal when visible */
+}
+
 
 .view-button {
     padding: 10px 15px;
-    background-color: #2A9D8F;
+    background-color: #ef5223;
     border: none;
     border-radius: 4px;
     color: #fff;
@@ -556,7 +589,7 @@
 }
 
 .view-button:hover {
-    background-color: #006c67;
+    background-color: #a1391a;
 }
 
 /* For larger datasets, you can enable scrolling */
@@ -584,7 +617,8 @@
 
 .report-page {
     padding: 20px;
-    background-color: #F5F7FA;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .reports-list {
@@ -597,18 +631,41 @@
     background-color: white;
     padding: 20px;
     border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.report-download {
+    display: flex;
+    flex-direction: column;
+    width: 9rem;
+    align-content: center;
+    justify-content: center;
+    border-left: 0.5px solid rgb(228 228 228);
+}
+
+.download-button {
+    color: rgb(0, 166, 255);
+    cursor: pointer;
+}
+
+.download-button:hover {
+    color: rgb(2, 102, 156);
+    cursor: pointer;
 }
 
 .report-title {
     font-size: 1.25rem;
     font-weight: bold;
+    text-align: left;
     margin-bottom: 10px;
 }
 
 .report-description {
     font-size: 1rem;
     color: #555;
+    text-align: left;
     margin-bottom: 10px;
 }
 
@@ -618,7 +675,7 @@
 }
 
 .report-tag {
-    background-color: #2A9D8F;
+    background-color: #ef5223;
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
@@ -675,12 +732,12 @@
     z-index: 1000;
 }
 
-.modal-content {
+.modal-content-adv-search {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    width: 300px;
+    width: 600px;
 }
 
 .modal-button {
@@ -803,7 +860,6 @@
     color: #2a699d; /* Adjust to fit the color scheme of your site */
 }
 
-/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -817,7 +873,6 @@
     z-index: 1000;
 }
 
-/* Modal Content */
 .modal-content {
     background-color: white;
     padding: 20px;

@@ -13,6 +13,8 @@ import Multimedia from './components/Multimedia';
 import Service from './components/Service';
 import Report from './components/Report';
 import UploadReport from './components/UploadReport';
+import ViewModel from './components/ViewModel';
+import ViewModelMain from './components/ViewModelMain';
 
 function App() {
 
@@ -32,6 +34,7 @@ function App() {
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
         <Route path="/upload-reports" element={<UploadReport />} />
+        <Route path="/model/view-model" element={<ViewModelMain />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
