@@ -8,7 +8,7 @@ function Artifacts() {
 
     const artifacts = [
         {
-            name: "Thinly-bedded sedimentary outcrop (Full Scale)",
+            name: "Thinly-bedded sedimentary rocks",
             location: "Pendang, Kedah",
             imgSrc: artifacts1,
             link: "#"

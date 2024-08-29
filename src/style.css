@@ -3,7 +3,7 @@
     background-image: url("./assets/background.jpg");
     background-size: cover;
     background-position: center;
-    min-height: 95vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,9 +18,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0, 0, 0, 0.3); /* Adjust the 0.5 value to make it more or less dim */
-    z-index: -1; /* Place the overlay behind the content but on top of the background */
-    border-radius: inherit; /* Maintain any border-radius on the parent */
+    background-color: rgb(0, 0, 0, 0.3);
+    z-index: -1; 
+    border-radius: inherit;
 }
 
 .login-page {
@@ -154,6 +154,12 @@
 .title{
     color: white;
     font-size: 7.5rem;
+    height: 50px;
+}
+
+.system-name{
+    color: white;
+    font-style: italic;
 }
 
 .search-bar {
@@ -171,12 +177,17 @@
     width: 50rem;
 }
   
-.search-button {
-    padding: 0.72rem;
+.search-button-landing {
     background-color: white;
     border: none;
     border-radius: 0 50px 50px 0;
     cursor: pointer;
+    padding: 11.2px;
+}
+
+.search-button-landing img {
+    width: 20px;
+    height: 20px;
 }
 
 .circle {

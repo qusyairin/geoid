@@ -1,5 +1,6 @@
-import "../style.css";
 import React, { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import "../style.css";
 import GoogleMap from 'google-maps-react-markers';
 import FilterMenu from "./FilterMenu";
 import Artifacts from "./Artifacts";
@@ -9,6 +10,7 @@ import ResultReport from "./ResultReport";
 import ResultMultimedia from "./ResultMultimedia";
 
 function Home() {
+    const navigate = useNavigate();
     const mapRef = useRef(null);
     const [mapReady, setMapReady] = useState(false);
     const [showResults, setShowResults] = useState(false);
@@ -29,14 +31,18 @@ function Home() {
     };
 
     const handleCloseResults = () => {
-      setShowResults(false);
+        setShowResults(false);
     };
 
     const handleButtonClick = (view) => {
         setCurrentView(view);
     };
 
-    const Marker = ({ text }) => (
+    const handleMarkerClick = (path) => {
+        navigate(path); // Navigate to the specified path
+    };
+
+    const Marker = ({ text, path }) => (
         <div
             style={{
                 position: "absolute",
@@ -44,7 +50,9 @@ function Home() {
                 color: "black",
                 textAlign: "center",
                 width: "120px",
+                cursor: "pointer" // Add cursor style to indicate it's clickable
             }}
+            onClick={() => handleMarkerClick(path)} // Handle marker click
         >
             <div
                 style={{
@@ -82,21 +90,31 @@ function Home() {
         <div style={{ height: "100vh", width: "100%" }}>
             <GoogleMap
                 apiKey=""
-                defaultCenter={{ lat: 3.166, lng: 101.7 }}
-                defaultZoom={9}
+                defaultCenter={{ lat: 6.156156, lng: 100.502969 }}
+                defaultZoom={7}
                 mapMinHeight="100vh"
                 onGoogleApiLoaded={onGoogleApiLoaded}
                 onChange={(map) => console.log('Map moved', map)}
             >
                 <Marker
                     text={'Kebun 500'}
-                    lat={3.166}
-                    lng={101.7}
+                    lat={6.156156}
+                    lng={100.502969}
+                    path='/model/view-model' // Pass path to navigate to
                 />
+
+                <Marker
+                    text={'Pulau Bidong'}
+                    lat={5.621574}
+                    lng={103.055531}
+                    path='/model/view-model' // Pass path to navigate to
+                />  
             </GoogleMap>
 
             {/* Floating Filter Menu Box */}
-            <FilterMenu onApplyFilter={handleApplyFilter} />
+            <div style={{overflow: 'hidden'}}>
+                <FilterMenu onApplyFilter={handleApplyFilter}/>
+            </div>
 
             {/* Search Results Placeholder */}
             {showResults && (
@@ -106,7 +124,7 @@ function Home() {
                         bottom: "0",
                         left: "0",
                         width: "100%",
-                        height: "50%",
+                        height: "37%",
                         background: "white",
                         boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.2)",
                         padding: "20px",
