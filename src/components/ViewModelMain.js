@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useLocation } from 'react-router-dom';
 import ViewModel from "./ViewModel";
 import "../viewModel.css"; // For styling
+import PurchaseModel from "./modal/PurchaseModel";
 
 function ViewModelMain() {
     // State to control the modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isQropen, setIsQropen] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedData, setSelectedData] = useState(null);
 
     // Get the data passed from ViewModel
     const location = useLocation();
@@ -25,6 +28,15 @@ function ViewModelMain() {
         return <p>No data provided.</p>;
     }
 
+    const handlePurchaseClick = (data) => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedData(null);
+    };
+
     return (
         <div className="artifacts-page">
             <ViewModel />
@@ -41,7 +53,7 @@ function ViewModelMain() {
                     <p><strong>Age:</strong> {data.age}</p>
                     </>
                 )}
-                {data.type === 'Archaelogy' && (
+                {data.type === 'Archaeology' && (
                     <>
                     <p><strong>Origin:</strong> {data.origin}</p>
                     <p><strong>Excavation Site:</strong> {data.excavation}</p>
@@ -51,6 +63,7 @@ function ViewModelMain() {
 
                 <div className="button-group">
                     <button className="view-model-btn" onClick={toggleModal}>View Model Details</button>
+                    <button className="download-model-btn" onClick={handlePurchaseClick}>Purchase</button>
                     <button className="download-model-btn" onClick={toggleQR}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-badge-ar-fill" viewBox="0 0 16 16">
                             <path d="m6.031 8.574-.734-2.426h-.052L4.51 8.574h1.52zm3.642-2.641v1.938h1.033c.66 0 1.068-.316 1.068-.95 0-.64-.422-.988-1.05-.988z"/>
@@ -118,7 +131,7 @@ function ViewModelMain() {
                             </>
                         )}
 
-                        {data.type === "Archaelogy" && (
+                        {data.type === "Archaeology" && (
                             <>
                                 <div className="detail-group">
                                     <p><strong>Origin</strong></p>
@@ -169,6 +182,8 @@ function ViewModelMain() {
                     </div>
                 </div>
             )}
+
+            <PurchaseModel show={showModal} onClose={handleCloseModal} model={data}/>
         </div>
     );
 }

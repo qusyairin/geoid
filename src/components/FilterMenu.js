@@ -1,9 +1,21 @@
 import "../style.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function FilterMenu({ onApplyFilter }) {
+function FilterMenu({ onApplyFilter, reset }) {
     const [category, setCategory] = useState("");
     const [country, setCountry] = useState("");
+    const [result, setResult] = useState(null);
+
+    const handleApply = () => {
+        onApplyFilter(category);
+    }
+
+    const handleReset = () => {
+        setCategory("");
+        setCountry("");
+        setResult(null)
+        reset();
+    }
 
     return (
         <div
@@ -25,6 +37,7 @@ function FilterMenu({ onApplyFilter }) {
                         <label>
                             <select 
                                 className="dropdown"
+                                value={country}
                                 onChange={(e) => setCountry(e.target.value)}
                                 >
                                 <option value="" selected>
@@ -35,8 +48,8 @@ function FilterMenu({ onApplyFilter }) {
                         </label>
                     </div>
 
-                    <div className="reset-button" style={{ marginTop: '20px' }}>
-                        <button>Reset</button>
+                    <div className="reset-button" onClick={handleReset} style={{ marginTop: '20px' }}>
+                        <button>Reset Search & Filter</button>
                     </div>
                 </div>
 
@@ -72,7 +85,7 @@ function FilterMenu({ onApplyFilter }) {
                     </div>
 
                     <div className="apply-button" style={{ marginTop: '20px', color: '#b5205e !important' }}>
-                        <button onClick={onApplyFilter}>Apply Filter</button>
+                        <button onClick={handleApply}>Apply Filter</button>
                     </div>
                 </div>
                 <div style={{ marginRight: '2rem' }}>
@@ -89,7 +102,7 @@ function FilterMenu({ onApplyFilter }) {
                                     Category
                                 </option>
                                 <option value="geology">Geology</option>
-                                <option value="archeology">Archeology</option>
+                                <option value="archaeology">Archaeology</option>
                             </select>
                         </label>
                     </div>

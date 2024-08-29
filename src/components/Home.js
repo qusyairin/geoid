@@ -1,33 +1,66 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import "../style.css";
 import GoogleMap from 'google-maps-react-markers';
 import FilterMenu from "./FilterMenu";
-import Artifacts from "./Artifacts";
 import ResultModel from "./ResultModel";
 import ResultButton from "./ResultButton";
 import ResultReport from "./ResultReport";
 import ResultMultimedia from "./ResultMultimedia";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [keyword, setKeyword] = useState(location.state?.keyword || ""); 
+    const [filteredMarker, setFilteredMarker] = useState([]);
     const mapRef = useRef(null);
     const [mapReady, setMapReady] = useState(false);
     const [showResults, setShowResults] = useState(false);
+    const [resultCount, setResultCount] = useState(null);
     const [currentView, setCurrentView] = useState('model');
+    const [selectedCategory, setSelectedCategory] = useState('');
 
-    /**
-     * @description This function is called when the map is ready
-     * @param {Object} map - reference to the map instance
-     * @param {Object} maps - reference to the maps library
-     */
+    const markerData = [
+        {
+            text: 'Kebun 500',
+            lat: 6.156156,
+            lng: 100.502969,
+            path: '/model/view-model',
+            type: 'geology',
+            keyword: 'kebun 500'
+        },
+        {
+            text: 'Pulau Bidong',
+            lat: 5.621574,
+            lng: 103.055531,
+            path: '/model/view-model',
+            type: 'archaeology',
+            keyword: 'pulau bidong'
+        }
+    ];
+
     const onGoogleApiLoaded = ({ map, maps }) => {
         mapRef.current = map;
         setMapReady(true);
     };
 
-    const handleApplyFilter = () => {
+    const handleApplyFilter = (category) => {
+        if (category === '') {
+            setFilteredMarker(markerData);
+        } else {
+            setFilteredMarker(markerData.filter(marker => marker.type.toLowerCase() === category.toLowerCase()));
+        }
+        setSelectedCategory(category);
         setShowResults(true);
+    };
+
+    const handleReset = () => {
+        setFilteredMarker(markerData);
+        setSelectedCategory('');
+        setKeyword(''); // Reset keyword on filter reset
+        navigate('/home'); // Navigate to home to clear state if needed
     };
 
     const handleCloseResults = () => {
@@ -42,7 +75,30 @@ function Home() {
         navigate(path); // Navigate to the specified path
     };
 
-    const Marker = ({ text, path }) => (
+    useEffect(() => {
+        if (keyword) {
+            const filtered = markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase());
+            setFilteredMarker(filtered);
+            if (filtered.length === 0){
+                toast.error("0 result found. Please click reset search on Filter Menu!", {
+                    position: "top-center"
+                });
+            } else {
+                toast.info(`${filtered.length} location found.`, {
+                    position: "top-center"
+                });
+                setShowResults(true);
+            }
+        } else {
+            setFilteredMarker(markerData);
+        }
+    }, [keyword]);
+
+    useEffect(() => {
+        setResultCount(filteredMarker.length);
+    }, [filteredMarker]);
+
+    const Marker = ({ text, path, type }) => (
         <div
             style={{
                 position: "absolute",
@@ -56,7 +112,7 @@ function Home() {
         >
             <div
                 style={{
-                    background: "white",
+                    background: type === 'geology' ? "yellow" : "orange",
                     padding: "10px",
                     borderRadius: "8px",
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
@@ -67,7 +123,6 @@ function Home() {
                 }}
             >
                 {text}
-                <span style={{ fontWeight: "normal" }}>View Model > </span>
             </div>
             <div
                 style={{
@@ -75,7 +130,7 @@ function Home() {
                     height: 0,
                     borderLeft: "10px solid transparent",
                     borderRight: "10px solid transparent",
-                    borderTop: "10px solid white",
+                    borderTop: type === 'geology' ? "10px solid yellow" : "10px solid orange",
                     position: "absolute",
                     left: "50%",
                     transform: "translateX(-50%)",
@@ -89,31 +144,27 @@ function Home() {
     return (
         <div style={{ height: "100vh", width: "100%" }}>
             <GoogleMap
-                apiKey=""
-                defaultCenter={{ lat: 6.156156, lng: 100.502969 }}
+                defaultCenter={{ lat: 4.156156, lng: 103.502969 }}
                 defaultZoom={7}
                 mapMinHeight="100vh"
                 onGoogleApiLoaded={onGoogleApiLoaded}
                 onChange={(map) => console.log('Map moved', map)}
             >
-                <Marker
-                    text={'Kebun 500'}
-                    lat={6.156156}
-                    lng={100.502969}
-                    path='/model/view-model' // Pass path to navigate to
-                />
-
-                <Marker
-                    text={'Pulau Bidong'}
-                    lat={5.621574}
-                    lng={103.055531}
-                    path='/model/view-model' // Pass path to navigate to
-                />  
+                {filteredMarker.map((marker, index) => (
+                    <Marker
+                        text={marker.text}
+                        lat={marker.lat}
+                        lng={marker.lng}
+                        path={marker.path}
+                        type={marker.type}
+                        key={index}
+                    />
+                ))}
             </GoogleMap>
 
             {/* Floating Filter Menu Box */}
-            <div style={{overflow: 'hidden'}}>
-                <FilterMenu onApplyFilter={handleApplyFilter}/>
+            <div style={{ overflow: 'hidden' }}>
+                <FilterMenu onApplyFilter={handleApplyFilter} reset={handleReset}/>
             </div>
 
             {/* Search Results Placeholder */}
@@ -135,12 +186,13 @@ function Home() {
                 >
                     <div>
                         <ResultButton onClose={handleCloseResults} onButtonClick={handleButtonClick} />
-                        {currentView === 'model' && <ResultModel />}
+                        {currentView === 'model' && <ResultModel category={selectedCategory} keyword={keyword} />}
                         {currentView === 'reports' && <ResultReport />}
                         {currentView === 'multimedia' && <ResultMultimedia />}
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </div>
     );
 }
