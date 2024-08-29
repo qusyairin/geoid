@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../style.css';
 import model1img from '../assets/model1.png';
@@ -10,7 +10,7 @@ import qr1 from '../assets/qr1.png';
 import qr2 from '../assets/qr2.png';
 import artifacts1 from '../assets/artifacts1.glb';
 
-function ResultModel() {
+function ResultModel({ category, keyword }) {
     const navigate = useNavigate();
 
     const artifacts = [
@@ -35,7 +35,8 @@ function ResultModel() {
                 license: "CC Attribution",
                 published: "2 years ago",
                 downloadPath: model1,
-                arPath: qr1
+                arPath: qr1,
+                keyword: 'kebun 500'
             }
         },
         {
@@ -59,9 +60,8 @@ function ResultModel() {
                 license: "CC Attribution",
                 published: "1 year ago",
                 downloadPath: model2,
-                arPath: qr2
+                arPath: qr2,
             },
-            
         },
         {
             name: "Maenam Noi Brown Glazed Jar with Four Loop Handles",
@@ -74,7 +74,7 @@ function ResultModel() {
                 country: "Malaysia",
                 state: "Terengganu",
                 district: "Kuala Nerus",
-                type: 'Archaelogy',
+                type: 'Archaeology',
                 city: "N/A",
                 discipline: "General Geology",
                 age: "15th-18th century AD",
@@ -83,13 +83,23 @@ function ResultModel() {
                 license: "CC Attribution",
                 published: "1 year ago",
                 downloadPath: artifacts1,
+                keyword: 'pulau bidong'
             },
-            
         },
         // ... add more artifacts here
     ];
 
-    const resultCount = artifacts.length;
+    const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
+
+    useEffect(() => {
+        if (category) {
+            setFilteredArtifacts(artifacts.filter(artifact => artifact.data.type.toLowerCase() === category.toLowerCase()));
+        } else {
+            setFilteredArtifacts(artifacts);
+        }
+    }, [category]);
+
+    const resultCount = filteredArtifacts.length;
 
     const handleViewModel = (model, data) => {
         navigate('/model/view-model', { state: { model, data } });
@@ -99,7 +109,7 @@ function ResultModel() {
         <div className="artifacts-result-page">
             <h1 style={{ textAlign: 'left' }}>Models : {resultCount} result{resultCount !== 1 ? 's' : ''} found</h1>
             <div className="artifacts-grid">
-                {artifacts.map((artifact, index) => (
+                {filteredArtifacts.map((artifact, index) => (
                     <div className="artifact-card" key={index}>
                         <img src={artifact.imgSrc} alt={artifact.name} className="artifact-image" />
                         <div className="artifact-info">
