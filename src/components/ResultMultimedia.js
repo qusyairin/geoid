@@ -13,8 +13,8 @@ function ResultMultimedia() {
 
     const multimedia = [
         {
-            name: "Pulau Dayang Rock Formation",
-            location: "Mersing, Johor",
+            name: "Kebun 500",
+            location: "Alor Setar, Kedah",
             imgSrc: artifacts1,
             type: "image", // Specify type
             link: "#"
@@ -27,7 +27,7 @@ function ResultMultimedia() {
             link: "#"
         },
         {
-            name: "Sample Video",
+            name: "Kebun 500 Video",
             location: "Malaysia",
             imgSrc: video1,
             type: "video", // Specify type

@@ -86,7 +86,7 @@
 }
 
 .download-model-btn {
-    margin-left: auto; /* Stays to the right */
+    margin-left: 0; /* Stays to the right */
 }
 
 /* Modal Styles */

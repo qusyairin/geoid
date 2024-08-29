@@ -77,15 +77,17 @@ function Home() {
 
     useEffect(() => {
         if (keyword) {
-            setFilteredMarker(markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase()));
-            if (markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase()).length === 0){
+            const filtered = markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase());
+            setFilteredMarker(filtered);
+            if (filtered.length === 0){
                 toast.error("0 result found. Please click reset search on Filter Menu!", {
                     position: "top-center"
                 });
             } else {
-                toast.info(`${markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase()).length} location found.`, {
+                toast.info(`${filtered.length} location found.`, {
                     position: "top-center"
-                  });
+                });
+                setShowResults(true);
             }
         } else {
             setFilteredMarker(markerData);
@@ -142,7 +144,7 @@ function Home() {
     return (
         <div style={{ height: "100vh", width: "100%" }}>
             <GoogleMap
-                defaultCenter={{ lat: 6.156156, lng: 100.502969 }}
+                defaultCenter={{ lat: 4.156156, lng: 103.502969 }}
                 defaultZoom={7}
                 mapMinHeight="100vh"
                 onGoogleApiLoaded={onGoogleApiLoaded}
@@ -190,7 +192,7 @@ function Home() {
                     </div>
                 </div>
             )}
-             <ToastContainer />
+            <ToastContainer />
         </div>
     );
 }

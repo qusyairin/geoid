@@ -1,35 +1,49 @@
 import React, { useState, useCallback } from 'react';
 import "../style.css";
-import artifacts1 from '../assets/artifacts1.jpg';
-import artifacts2 from '../assets/artifacts2.webp';
+import artifacts1 from '../assets/media1.jpg';
+import artifacts2 from '../assets/media2.jpg';
+import video1 from '../assets/video1.mov'; // Add your video asset
 import ImageViewer from 'react-simple-image-viewer';
+import VideoViewer from './modal/VideoViewer';
 
 function Multimedia() {
-    const [currentImage, setCurrentImage] = useState(0);
+    const [currentMedia, setCurrentMedia] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const [isVideo, setIsVideo] = useState(false);
 
-    const artifacts = [
+    const multimedia = [
         {
-            name: "Bako National Park",
-            location: "Kuching, Sarawak",
+            name: "Kebun 500",
+            location: "Alor Setar, Kedah",
             imgSrc: artifacts1,
+            type: "image", // Specify type
             link: "#"
         },
         {
-            name: "Granite rocks",
-            location: "Kuantan, Pahang",
+            name: "Tusan Cliff",
+            location: "Miri, Sarawak",
             imgSrc: artifacts2,
+            type: "image", // Specify type
             link: "#"
         },
-        // ... add more artifacts here
+        {
+            name: "Kebun 500 Video",
+            location: "Malaysia",
+            imgSrc: video1,
+            type: "video", // Specify type
+            link: "#"
+        },
+        // ... add more multimedia here
     ];
 
-    const openImageViewer = useCallback((index) => {
-        setCurrentImage(index);
+    const openMediaViewer = useCallback((index) => {
+        const media = multimedia[index];
+        setCurrentMedia(index);
+        setIsVideo(media.type === "video");
         setIsViewerOpen(true);
-    }, []);
+    }, [multimedia]);
 
-    const closeImageViewer = () => {
+    const closeMediaViewer = () => {
         setIsViewerOpen(false);
     };
 
@@ -45,33 +59,38 @@ function Multimedia() {
                 </button>
             </div>
             <div className="artifacts-grid">
-                {artifacts.map((artifact, index) => (
-                    <div className="multimedia-card" onClick={() => openImageViewer(index)} key={index}>
-                        <img src={artifact.imgSrc} alt={artifact.name} className="multimedia-image" />
-                        <div className="overlay">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-zoom-in" viewBox="0 0 16 16">
-                                <path fillRule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0"/>
-                                <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z"/>
-                                <path fillRule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5"/>
-                            </svg>
-                            <p style={{marginLeft: '5px'}}>Click to view</p>
+                {multimedia.map((item, index) => (
+                    <div className="artifact-card" key={index} onClick={() => openMediaViewer(index)}>
+                        {item.type === "image" ? (
+                            <img src={item.imgSrc} alt={item.name} className="artifact-image" />
+                        ) : (
+                            <video className="artifact-image" src={item.imgSrc} alt={item.name} />
+                        )}
+                        <div className="artifact-info">
+                            <h3>{item.name}</h3>
+                            <p>{item.location}</p>
+                            <button className="view-button">
+                                View Media >
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
 
-            {isViewerOpen && (
-                <div>
-                <ImageViewer
-                    src={artifacts.map(artifact => artifact.imgSrc)} // Pass all image sources
-                    currentIndex={currentImage}
-                    onClose={closeImageViewer}
-                    backgroundStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 2000 }} // Ensure high z-index
-                    closeOnClickOutside={true}
+            {isViewerOpen && (isVideo ? (
+                <VideoViewer
+                    src={multimedia[currentMedia].imgSrc} // Pass video source
+                    onClose={closeMediaViewer}
                 />
-                    <button>Close</button>
-                </div>
-            )}
+            ) : (
+                <ImageViewer
+                    src={multimedia.map(item => item.imgSrc)} // Pass all image sources
+                    currentIndex={currentMedia}
+                    onClose={closeMediaViewer}
+                    backgroundStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 3000 }} // Ensure high z-index
+                    closeOnClickOutside={true} // Optional: close the viewer when clicking outside
+                />
+            ))}
         </div>
     );
 }

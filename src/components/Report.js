@@ -9,37 +9,36 @@ function Report() {
     // Example array of report data
     const reports = [
         {
-            title: "Preliminary view of geotechnical properties of soft rocks of Semanggol formation at Pokok Sena, Kedah",
-            link: "https://iopscience.iop.org/article/10.1088/1755-1315/140/1/012117/meta",
-            author: "N.R Ahmad and N.H Jamin",
-            year: "2018",
+            title: "Late Palaeozoic radiolarians from the Bentong-Raub suture zone, and the Semanggol formation",
+            link: "https://doi.org/10.1016/0743-9547(95)00008-G",
+            author: "Spiller, F.C & Metcalfe, I.",
+            year: "1995",
             linkSource: "iopscience.iop.org",
-            description: "… the Triassic Semanggol Formation in North Perak and East Kedah, we … with bedded chert within the formation's typical deep-sea … of limestone",
+            description: "Cherts ... from the Bentong-Raub suture zone, Peninsular Malaysia, have yielded radiolarians ... Carboniferous (Tournaisian, late? Tournaisian and Viséan) ages.",
             file: report1,
             tags: ["General Geology"]
         },
         {
-            title: "Gravity Analysis for Subsurface Characterization and Depth Estimation of Muda River Basin, Kedah",
-            link: "https://www.mdpi.com/2076-3417/11/14/6363",
-            author: "MNA Zakariah, N Roslan, N Sulaiman",
-            year: "2021",
+            title: "Middle and Late Permian radiolarians from the Semanggol Formation, Northwest Peninsular Malaysia.",
+            link: "https://doi.org/10.14825/prpsj1951.1995.177_43",
+            author: "Sashida, K., ADACHI, S., IGO, H., KOIKE, T., & AMNAN, I. B.",
+            year: "1995",
             linkSource: "mdpi.com",
             description: "… However, in contrast, Foo [10] revealed that Southern Semanggol formation in north Perak… In northeast Kedah...",
             file: report2,
             tags: ["General Geology"]
         },
         {
-            title: "Some geochemical studies of the metaquartzites of the Jerai Formation, Kedah",
-            link: "https://archives.datapages.com/data/geological-society-of-malaysia/bulletins/013/013001/pdfs/57.htm",
-            author: "KT Chow",
-            year: "1980",
+            title: "Stratigraphy and Depositional Model of the Chert Member of the Semanggol Formation, Kebun 500, Pokok Sena, Kedah.",
+            link: "https://utpedia.utp.edu.my/id/eprint/19059/",
+            author: "Mohammad, M. A",
+            year: "2016",
             linkSource: "archives.datapages.com",
-            description: "On the southern part of the Gunung Jerai area, lies igneous rocks such as granites...",
+            description: "... Semanggol formation at an outcrop at Kebun 500.. and ... but yet to explore on Kebun 500.",
             file: report3,
             tags: ["Malaysia"]
         },
-        // Add more report objects as needed
-    ];
+    ]
 
     const [showModal, setShowModal] = useState(false);
     const [selectedReport, setSelectedReport] = useState(null);
