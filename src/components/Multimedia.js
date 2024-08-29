@@ -61,13 +61,16 @@ function Multimedia() {
             </div>
 
             {isViewerOpen && (
+                <div>
                 <ImageViewer
                     src={artifacts.map(artifact => artifact.imgSrc)} // Pass all image sources
                     currentIndex={currentImage}
                     onClose={closeImageViewer}
-                    backgroundStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 1000 }} // Ensure high z-index
-                    closeOnClickOutside={true} // Optional: close the viewer when clicking outside
+                    backgroundStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 2000 }} // Ensure high z-index
+                    closeOnClickOutside={true}
                 />
+                    <button>Close</button>
+                </div>
             )}
         </div>
     );
