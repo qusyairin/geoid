@@ -20,13 +20,6 @@ function ResultMultimedia() {
             link: "#"
         },
         {
-            name: "Tusan Cliff",
-            location: "Miri, Sarawak",
-            imgSrc: artifacts2,
-            type: "image", // Specify type
-            link: "#"
-        },
-        {
             name: "Kebun 500 Video",
             location: "Malaysia",
             imgSrc: video1,

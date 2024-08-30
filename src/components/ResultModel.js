@@ -49,7 +49,7 @@ function ResultModel({ category, keyword }) {
         },
         {
             name: "Sandstone with Pyrite",
-            location: "Sukau, Sabah",
+            location: "Pokok Sena, Kedah",
             imgSrc: model2img,
             model: model2,
             data: {
