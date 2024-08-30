@@ -3,6 +3,10 @@ import '../style.css'; // Ensure you have a CSS file for custom styling
 import report1 from '../assets/report1.pdf';
 import report2 from '../assets/report2.pdf';
 import report3 from '../assets/report3.pdf';
+import report4 from '../assets/report4.pdf';
+import report5 from '../assets/report5.pdf';
+import report6 from '../assets/report6.pdf';
+import report7 from '../assets/report7.pdf';
 import Purchase from './modal/Purchase';
 
 function Report() {
@@ -16,6 +20,7 @@ function Report() {
             linkSource: "iopscience.iop.org",
             description: "Cherts ... from the Bentong-Raub suture zone, Peninsular Malaysia, have yielded radiolarians ... Carboniferous (Tournaisian, late? Tournaisian and Viséan) ages.",
             file: report1,
+            category: 'Geology',
             tags: ["General Geology"]
         },
         {
@@ -26,6 +31,7 @@ function Report() {
             linkSource: "mdpi.com",
             description: "… However, in contrast, Foo [10] revealed that Southern Semanggol formation in north Perak… In northeast Kedah...",
             file: report2,
+            category: 'Geology',
             tags: ["General Geology"]
         },
         {
@@ -36,9 +42,55 @@ function Report() {
             linkSource: "archives.datapages.com",
             description: "... Semanggol formation at an outcrop at Kebun 500.. and ... but yet to explore on Kebun 500.",
             file: report3,
+            category: 'Geology',
             tags: ["Malaysia"]
         },
-    ]
+        {
+            title: "MARITIME ARCHAEOLOGY In Bidong Island, Terengganu Waters",
+            link: "https://www.researchgate.net/publication/359245996_MARITIME_ARCHAEOLOGY_in_Bidong_Island_Terengganu_Waters",
+            author: "Assoc. Prof. Dr. Asyaari Muhamad",
+            year: "2018",
+            linkSource: "www.researchgate.net",
+            description: "Although archaeology was born from a study on land sites... of other forms of archaeological studies.",
+            file: report4,
+            category: 'Archaeology',
+            tags: ["Archaeology"]
+        },
+        {
+            title: "BENTHIC COMMUNITY DIVERSITY AT MARINE ARCHAEOLOGICAL SITE, PULAU BIDONG",
+            link: "https://www.researchgate.net/publication/353621895_BENTHIC_COMMUNITY_DIVERSITY_AT_MARINE_ARCHAEOLOGICAL_SITE_PULAU_BIDONG_SOUTH_CHINA_SEA",
+            author: "Aminah Ismailluddin",
+            year: "2021",
+            linkSource: "www.researchgate.net",
+            description: "An artificial structure on the seafloor .. structure of the benthic community.. an underwater heritage site",
+            file: report5,
+            category: 'Archaeology',
+            tags: ["Archaeology"]
+        },
+        {
+            title: "Discovery and Excavation of Artifacts from the Bidong Shipwreck",
+            link: "https://www.cambridge.org/core/journals/advances-in-archaeological-practice/article/abs/discovery-and-excavation-of-artifacts-from-the-bidong-shipwreck-malaysia/F2DFF56A986345DD5AD608CA4E38D00E",
+            author: "B Mustapa",
+            year: "2023",
+            linkSource: "www.cambridge.org",
+            description: "Underwater archaeological .. ASEAN partner countries, such as Indonesia,... and the Philippines.",
+            file: report6,
+            category: 'Archaeology',
+            tags: ["Archaeology"]
+        },
+        {
+            title: "ARKEOLOGI MARITIM: KAPAL KARAM DI SEMENANJUNG MALAYSIA",
+            link: "http://web.usm.my/km/earlyView_May2021/20_KM-OA-08-20-0152.R1.pdf",
+            author: " Z Baco",
+            year: "2021",
+            linkSource: "web.usm.my",
+            description: "This article discusses archaeological research of shipwrecks as a form of underwater ... Peninsular Malaysia from 1907 to 2019.",
+            file: report7,
+            category: 'Archaeology',
+            tags: ["Archaeology"]
+        },
+        // Add more report objects as needed
+    ];
 
     const [showModal, setShowModal] = useState(false);
     const [selectedReport, setSelectedReport] = useState(null);

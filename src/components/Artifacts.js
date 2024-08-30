@@ -15,7 +15,7 @@ import artifacts2 from '../assets/sample_10.glb';
 import artifacts3 from '../assets/sample_103.glb';
 import artifacts4 from '../assets/sample_30.glb';
 import artifacts5 from '../assets/sample_291.glb';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Artifacts() {
@@ -28,11 +28,11 @@ function Artifacts() {
             imgSrc: model1img,
             model: model1,
             data: {
-                title: "Thinly-bedded sedimentary outcrop",
+                title: "Thinly-bedded sedimentary rocks",
                 author: "Digital Geoscience Global",
                 country: "Malaysia",
                 state: "Kedah",
-                district: "Pendang",
+                district: "Pokok Sena",
                 city: "N/A",
                 type: 'Geology',
                 discipline: "General Geology",
@@ -191,17 +191,31 @@ function Artifacts() {
     ];
 
     const [filteredArtifacts, setFilteredArtifacts] = useState(artifacts);
+    const [searchKeyword, setSearchKeyword] = useState("");
 
     const handleViewModel = (model, data) => {
         navigate('/model/view-model', { state: { model, data } });
     };
 
+    const handleSearch = () => {
+        if (searchKeyword !== ''){
+            const filtered = artifacts.filter(artifacts => artifacts.data.keyword.toLowerCase() === searchKeyword.toLowerCase());
+            setFilteredArtifacts(filtered);
+        } else {
+            setFilteredArtifacts(artifacts)
+        }
+    }
+
     return (
         <div className="report-page">
             <h1>Models</h1>
             <div className="search-container">
-                <input type="text" placeholder="Search Artifacts" className="search-bar" />
-                <button className="search-button">
+                <input type="text" 
+                    placeholder="Search Model" 
+                    className="search-bar"
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)} />
+                <button className="search-button" onClick={handleSearch}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
                     </svg>

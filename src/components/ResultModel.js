@@ -28,7 +28,7 @@ function ResultModel({ category, keyword }) {
             imgSrc: model1img,
             model: model1,
             data: {
-                title: "Thinly-bedded sedimentary outcrop",
+                title: "Thinly-bedded sedimentary rocks",
                 author: "Digital Geoscience Global",
                 country: "Malaysia",
                 state: "Kedah",

@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import "../style.css";
 import artifacts1 from '../assets/media1.jpg';
 import artifacts2 from '../assets/media2.jpg';
+import artifacts3 from '../assets/media3.jpg';
+import artifacts4 from '../assets/media4.jpg';
 import video1 from '../assets/video1.mov'; // Add your video asset
 import ImageViewer from 'react-simple-image-viewer';
 import VideoViewer from './modal/VideoViewer';
@@ -17,16 +19,41 @@ function Multimedia() {
             location: "Alor Setar, Kedah",
             imgSrc: artifacts1,
             type: "image", // Specify type
-            link: "#"
+            link: "#",
+            category: "Geology"
         },
         {
             name: "Kebun 500 Video",
             location: "Malaysia",
             imgSrc: video1,
             type: "video", // Specify type
-            link: "#"
+            link: "#",
+            category: "Geology"
         },
-        // ... add more multimedia here
+        {
+            name: "Artifacts in Pulau Bidong Shipwreck",
+            location: "Pulau Bidong, Kuala Terengganu",
+            imgSrc: artifacts2,
+            type: "image", // Specify type
+            link: "#",
+            category: "Archaeology"
+        },
+        {
+            name: "Artifacts in Pulau Bidong Shipwreck",
+            location: "Pulau Bidong, Kuala Terengganu",
+            imgSrc: artifacts3,
+            type: "image", // Specify type
+            link: "#",
+            category: "Archaeology"
+        },
+        {
+            name: "Artifacts in Pulau Bidong Shipwreck",
+            location: "Pulau Bidong, Kuala Terengganu",
+            imgSrc: artifacts4,
+            type: "image", // Specify type
+            link: "#",
+            category: "Archaeology"
+        },
     ];
 
     const openMediaViewer = useCallback((index) => {

@@ -187,8 +187,8 @@ function Home() {
                     <div>
                         <ResultButton onClose={handleCloseResults} onButtonClick={handleButtonClick} />
                         {currentView === 'model' && <ResultModel category={selectedCategory} keyword={keyword} />}
-                        {currentView === 'reports' && <ResultReport />}
-                        {currentView === 'multimedia' && <ResultMultimedia />}
+                        {currentView === 'reports' && <ResultReport category={selectedCategory}/>}
+                        {currentView === 'multimedia' && <ResultMultimedia category={selectedCategory}/>}
                     </div>
                 </div>
             )}
