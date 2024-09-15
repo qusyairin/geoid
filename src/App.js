@@ -1,5 +1,7 @@
+// App.js
+
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Artifacts from './components/Artifacts';
 import Home from './components/Home';
 import Profile from './components/Profile';
@@ -13,23 +15,36 @@ import Multimedia from './components/Multimedia';
 import Service from './components/Service';
 import Report from './components/Report';
 import UploadReport from './components/UploadReport';
-import ViewModel from './components/ViewModel';
 import ViewModelMain from './components/ViewModelMain';
+import { useState } from 'react';
 
 function App() {
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser).user : null;
+  });
+
+  const handleLogin = (userData) => {
+    setUser(userData.user);
+    localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user'); // Clear user data from localStorage
+  };
 
   return (
-    <BrowserRouter>
     <div className="App">
-      <NavBar/>
+      <NavBar user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/model" element={<Artifacts />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/" element={<Landing />} />
-        <Route path="/multimedia" element={<Multimedia/>} />
+        <Route path="/multimedia" element={<Multimedia />} />
         <Route path="/register" element={<Register />} />
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
@@ -38,7 +53,6 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
-    </BrowserRouter>
   );
 }
 

@@ -1,71 +1,51 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import "../style.css";
-import artifacts1 from '../assets/media1.jpg';
-import artifacts2 from '../assets/media2.jpg';
-import artifacts3 from '../assets/media3.jpg';
-import artifacts4 from '../assets/media4.jpg';
-import video1 from '../assets/video1.mov'; // Add your video asset
 import ImageViewer from 'react-simple-image-viewer';
 import VideoViewer from './modal/VideoViewer';
+import axios from 'axios';
 
 function Multimedia() {
+    const [mediaItems, setMediaItems] = useState([]);
     const [currentMedia, setCurrentMedia] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
+    const [loading, setLoading] = useState(true); // Loading state
 
-    const multimedia = [
-        {
-            name: "Kebun 500",
-            location: "Alor Setar, Kedah",
-            imgSrc: artifacts1,
-            type: "image", // Specify type
-            link: "#",
-            category: "Geology"
-        },
-        {
-            name: "Kebun 500 Video",
-            location: "Malaysia",
-            imgSrc: video1,
-            type: "video", // Specify type
-            link: "#",
-            category: "Geology"
-        },
-        {
-            name: "Artifacts in Pulau Bidong Shipwreck",
-            location: "Pulau Bidong, Kuala Terengganu",
-            imgSrc: artifacts2,
-            type: "image", // Specify type
-            link: "#",
-            category: "Archaeology"
-        },
-        {
-            name: "Artifacts in Pulau Bidong Shipwreck",
-            location: "Pulau Bidong, Kuala Terengganu",
-            imgSrc: artifacts3,
-            type: "image", // Specify type
-            link: "#",
-            category: "Archaeology"
-        },
-        {
-            name: "Artifacts in Pulau Bidong Shipwreck",
-            location: "Pulau Bidong, Kuala Terengganu",
-            imgSrc: artifacts4,
-            type: "image", // Specify type
-            link: "#",
-            category: "Archaeology"
-        },
-    ];
+    useEffect(() => {
+        // Fetch data from the endpoint
+        const fetchData = async () => {
+            try {
+                setLoading(true); // Start loading
+                const response = await axios.get('https://geoid-rest.vercel.app/media');
+                setMediaItems(response.data);
+            } catch (error) {
+                console.error('Error fetching multimedia data:', error);
+            } finally {
+                setLoading(false); // Stop loading after data is fetched
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const openMediaViewer = useCallback((index) => {
-        const media = multimedia[index];
+        const media = mediaItems[index];
         setCurrentMedia(index);
         setIsVideo(media.type === "video");
         setIsViewerOpen(true);
-    }, [multimedia]);
+    }, [mediaItems]);
 
     const closeMediaViewer = () => {
         setIsViewerOpen(false);
     };
+
+    if (loading) {
+        return (
+            <div className="loading-screen">
+                <p>Loading data...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="report-page">
@@ -79,8 +59,8 @@ function Multimedia() {
                 </button>
             </div>
             <div className="artifacts-grid">
-                {multimedia.map((item, index) => (
-                    <div className="artifact-card" key={index} onClick={() => openMediaViewer(index)}>
+                {mediaItems.map((item, index) => (
+                    <div className="artifact-card" key={item._id} onClick={() => openMediaViewer(index)}>
                         {item.type === "image" ? (
                             <img src={item.imgSrc} alt={item.name} className="artifact-image" />
                         ) : (
@@ -99,12 +79,12 @@ function Multimedia() {
 
             {isViewerOpen && (isVideo ? (
                 <VideoViewer
-                    src={multimedia[currentMedia].imgSrc} // Pass video source
+                    src={mediaItems[currentMedia].imgSrc} // Pass video source
                     onClose={closeMediaViewer}
                 />
             ) : (
                 <ImageViewer
-                    src={multimedia.map(item => item.imgSrc)} // Pass all image sources
+                    src={mediaItems.map(item => item.imgSrc)} // Pass all image sources
                     currentIndex={currentMedia}
                     onClose={closeMediaViewer}
                     backgroundStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 3000 }} // Ensure high z-index

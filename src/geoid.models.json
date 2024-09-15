@@ -1,0 +1,186 @@
+[{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b26"
+  },
+  "name": "Thinly-bedded sedimentary rocks",
+  "location": "Pendang, Kedah",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.png?alt=media&token=539ccaa7-b946-476d-bcea-6b94f074655b",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.glb?alt=media&token=eaf38de4-30e7-43e0-abde-df69d68ecb6e",
+  "data": {
+    "title": "Thinly-bedded sedimentary rocks",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Kedah",
+    "district": "Pokok Sena",
+    "city": "N/A",
+    "type": "Geology",
+    "discipline": "General Geology",
+    "formation": "Semanggol Formation",
+    "rockType": "Sedimentary Rock",
+    "majorLithology": "Chert",
+    "age": "Triassic",
+    "license": "CC Attribution",
+    "published": "2 years ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.glb?alt=media&token=eaf38de4-30e7-43e0-abde-df69d68ecb6e",
+    "arPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/qr1.png?alt=media&token=b7e55144-087c-4d39-919d-1728d9c261d2",
+    "keyword": "kebun 500"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b27"
+  },
+  "name": "Sandstone with Pyrite",
+  "location": "Sukau, Sabah",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model2.png?alt=media&token=3e85d4e2-630f-42ff-82bd-8e6c2cb9d986",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model2.glb?alt=media&token=857d8133-5210-4504-9cbc-4a32da7382e6",
+  "data": {
+    "title": "Sandstone with Pyrite",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Sabah",
+    "district": "Sukau",
+    "type": "Geology",
+    "city": "N/A",
+    "discipline": "General Geology",
+    "formation": "Semanggol Formation",
+    "rockType": "Sedimentary Rock",
+    "majorLithology": "-",
+    "age": "Early Permian - Middle Triassic",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model2.glb?alt=media&token=857d8133-5210-4504-9cbc-4a32da7382e6",
+    "arPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/qr2.png?alt=media&token=637d675b-49bc-4baa-af62-289140730701",
+    "keyword": ""
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b28"
+  },
+  "name": "Maenam Noi Brown Glazed Jar with Four Loop Handles",
+  "location": "Kuala Nerus, Terengganu",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model3.png?alt=media&token=5c09b3ed-3ae8-4e5c-a956-49d1af9a6811",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_255.glb?alt=media&token=d4ac0103-af23-490c-b412-09616fc3f14a",
+  "data": {
+    "title": "Maenam Noi Brown Glazed Jar with Four Loop Handles",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Terengganu",
+    "district": "Kuala Nerus",
+    "type": "Archaeology",
+    "city": "N/A",
+    "discipline": "Archaeology",
+    "age": "15th-18th century AD",
+    "origin": "Northern/Central Thailand",
+    "excavation": "Bidong Island Shipwreck",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_255.glb?alt=media&token=d4ac0103-af23-490c-b412-09616fc3f14a",
+    "keyword": "pulau bidong"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b29"
+  },
+  "name": "Late Si Satchanalai Monochrome Glazed Small Jar",
+  "location": "Kuala Nerus, Terengganu",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model4.png?alt=media&token=fdac1413-dc5f-4cd4-9e99-a1935e3b4970",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_10.glb?alt=media&token=49fd34cb-1c9c-4746-a83a-b4074c181ef7",
+  "data": {
+    "title": "Late Si Satchanalai Monochrome Glazed Small Jar",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Terengganu",
+    "district": "Kuala Nerus",
+    "type": "Archaeology",
+    "city": "N/A",
+    "discipline": "Archaeology",
+    "age": "15th-18th century AD",
+    "origin": "Northern/Central Thailand",
+    "excavation": "Bidong Island Shipwreck",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_10.glb?alt=media&token=49fd34cb-1c9c-4746-a83a-b4074c181ef7",
+    "keyword": "pulau bidong"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b2a"
+  },
+  "name": "Late Si Satchanalai White Glazed Small Jar",
+  "location": "Kuala Nerus, Terengganu",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model5.png?alt=media&token=31a64976-ba0b-4098-ba3f-14fa75c00220",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_103.glb?alt=media&token=e948bbe2-1b76-4a1c-bf79-b089a9363586",
+  "data": {
+    "title": "Late Si Satchanalai White Glazed Small Jar",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Terengganu",
+    "district": "Kuala Nerus",
+    "type": "Archaeology",
+    "city": "N/A",
+    "discipline": "Archaeology",
+    "age": "15th-18th century AD",
+    "origin": "Northern/Central Thailand",
+    "excavation": "Bidong Island Shipwreck",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_103.glb?alt=media&token=e948bbe2-1b76-4a1c-bf79-b089a9363586",
+    "keyword": "pulau bidong"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b2b"
+  },
+  "name": "Maenam Noi Unglazed Lid",
+  "location": "Kuala Nerus, Terengganu",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model6.png?alt=media&token=8419a606-f9c6-479d-938f-760c51c6e271",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_30.glb?alt=media&token=0865931a-baf3-42a3-b93c-e8da5ad1322f",
+  "data": {
+    "title": "Maenam Noi Unglazed Lid",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Terengganu",
+    "district": "Kuala Nerus",
+    "type": "Archaeology",
+    "city": "N/A",
+    "discipline": "Archaeology",
+    "age": "15th-18th century AD",
+    "origin": "Northern/Central Thailand",
+    "excavation": "Bidong Island Shipwreck",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_30.glb?alt=media&token=0865931a-baf3-42a3-b93c-e8da5ad1322f",
+    "keyword": "pulau bidong"
+  }
+},
+{
+  "_id": {
+    "$oid": "66dc07373686bbe9d4676b2c"
+  },
+  "name": "Late Si Satchanalai Underglazed Black Small Jar",
+  "location": "Kuala Nerus, Terengganu",
+  "imgSrc": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model7.png?alt=media&token=88d0c821-a493-4d06-be6d-16fa7eaafa74",
+  "model": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_291.glb?alt=media&token=c3a21b40-96fe-4047-a5ac-b05924d906f1",
+  "data": {
+    "title": "Late Si Satchanalai Underglazed Black Small Jar",
+    "author": "Digital Geoscience Global",
+    "country": "Malaysia",
+    "state": "Terengganu",
+    "district": "Kuala Nerus",
+    "type": "Archaeology",
+    "city": "N/A",
+    "discipline": "Archaeology",
+    "age": "15th-18th century AD",
+    "origin": "Northern/Central Thailand",
+    "excavation": "Bidong Island Shipwreck",
+    "license": "CC Attribution",
+    "published": "1 year ago",
+    "downloadPath": "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/sample_291.glb?alt=media&token=c3a21b40-96fe-4047-a5ac-b05924d906f1",
+    "keyword": "pulau bidong"
+  }
+}]
