@@ -108,7 +108,6 @@ function Home() {
                 width: "120px",
                 cursor: "pointer" // Add cursor style to indicate it's clickable
             }}
-            onClick={() => handleMarkerClick(path)} // Handle marker click
         >
             <div
                 style={{

@@ -434,6 +434,15 @@
     background-color: #f5f5f5;
 }
 
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
 .edit-profile-button {
     grid-column: span 2;
     background-color: #2a9d8f;
@@ -1109,4 +1118,51 @@
 
 .user-dropdown:hover .dropdown-menu {
     display: block;
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-register {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content-register {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .modal-button-register {
+    background-color: #2a699d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+.required {
+color: red;
+margin-left: 5px;
+}
+
+.error-text {
+color: red;
+font-size: 0.875rem;
+margin-top: 0.5rem;
 }
