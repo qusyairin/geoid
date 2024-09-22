@@ -34,11 +34,30 @@ function Artifacts() {
     };
 
     // Handle search
-    const handleSearch = () => {
-        if (searchKeyword.trim() !== '') {
-            const filtered = artifacts.filter(artifact =>
-                artifact.data.keyword.toLowerCase().includes(searchKeyword.toLowerCase())
-            );
+    const handleSearch = (e) => {
+        const keyword = e.target.value.trim().toLowerCase();
+        setSearchKeyword(keyword);
+    
+        if (keyword !== '') {
+            const filtered = artifacts.filter(artifact => {
+                return (
+                    artifact.name?.toLowerCase().includes(keyword) ||
+                    artifact.location?.toLowerCase().includes(keyword) ||
+                    artifact.data?.title?.toLowerCase().includes(keyword) ||
+                    artifact.data?.author?.toLowerCase().includes(keyword) ||
+                    artifact.data?.country?.toLowerCase().includes(keyword) ||
+                    artifact.data?.state?.toLowerCase().includes(keyword) ||
+                    artifact.data?.district?.toLowerCase().includes(keyword) ||
+                    artifact.data?.city?.toLowerCase().includes(keyword) ||
+                    artifact.data?.type?.toLowerCase().includes(keyword) ||
+                    artifact.data?.discipline?.toLowerCase().includes(keyword) ||
+                    artifact.data?.formation?.toLowerCase().includes(keyword) ||
+                    artifact.data?.rockType?.toLowerCase().includes(keyword) ||
+                    artifact.data?.majorLithology?.toLowerCase().includes(keyword) ||
+                    artifact.data?.age?.toLowerCase().includes(keyword) ||
+                    artifact.data?.keyword?.toLowerCase().includes(keyword)
+                );
+            });
             setFilteredArtifacts(filtered);
         } else {
             setFilteredArtifacts(artifacts);
@@ -59,16 +78,11 @@ function Artifacts() {
             <div className="search-container">
                 <input
                     type="text"
-                    placeholder="Search Model"
+                    placeholder="Search name, location, category, keyword, type & etc..."
                     className="search-bar"
                     value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    onChange={handleSearch}
                 />
-                <button className="search-button" onClick={handleSearch}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg>
-                </button>
             </div>
             <div className="artifacts-grid">
                 {filteredArtifacts.map((artifact, index) => (

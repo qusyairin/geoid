@@ -59,8 +59,8 @@ function Home() {
     const handleReset = () => {
         setFilteredMarker(markerData);
         setSelectedCategory('');
-        setKeyword(''); // Reset keyword on filter reset
-        navigate('/home'); // Navigate to home to clear state if needed
+        setKeyword('');
+        navigate('/home');
     };
 
     const handleCloseResults = () => {
@@ -80,9 +80,10 @@ function Home() {
             const filtered = markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase());
             setFilteredMarker(filtered);
             if (filtered.length === 0){
-                toast.error("0 result found. Please click reset search on Filter Menu!", {
+                toast.error("0 result found on map. Please click reset search on Filter Menu!", {
                     position: "top-center"
                 });
+                setShowResults(true);
             } else {
                 toast.info(`${filtered.length} location found.`, {
                     position: "top-center"
@@ -186,8 +187,8 @@ function Home() {
                     <div>
                         <ResultButton onClose={handleCloseResults} onButtonClick={handleButtonClick} />
                         {currentView === 'model' && <ResultModel category={selectedCategory} keyword={keyword} />}
-                        {currentView === 'reports' && <ResultReport category={selectedCategory}/>}
-                        {currentView === 'multimedia' && <ResultMultimedia category={selectedCategory}/>}
+                        {currentView === 'reports' && <ResultReport category={selectedCategory} keyword={keyword}/>}
+                        {currentView === 'multimedia' && <ResultMultimedia category={selectedCategory} keyword={keyword}/>}
                     </div>
                 </div>
             )}

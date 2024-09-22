@@ -39,7 +39,23 @@ function ResultModel({ category, keyword }) {
         }
 
         if (keywordFilter) {
-            filtered = filtered.filter(artifact => artifact.data.keyword?.toLowerCase() === keywordFilter);
+            filtered = filtered.filter(artifact => 
+                artifact.name?.toLowerCase().includes(keywordFilter) ||
+                artifact.location?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.title?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.author?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.country?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.state?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.district?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.city?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.type?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.discipline?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.formation?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.rockType?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.majorLithology?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.age?.toLowerCase().includes(keywordFilter) ||
+                artifact.data?.keyword?.toLowerCase().includes(keywordFilter)
+            );
         }
 
         setFilteredArtifacts(filtered);

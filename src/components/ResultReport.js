@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../style.css'; // Ensure you have a CSS file for custom styling
 import Purchase from './modal/Purchase';
 
-function ResultReport({ category }) {
+function ResultReport({ category, keyword }) {
     const [reports, setReports] = useState([]);
     const [filteredReports, setFilteredReports] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -27,11 +27,21 @@ function ResultReport({ category }) {
 
     useEffect(() => {
         const categoryFilter = category ? category.toLowerCase() : '';
+        const keywordFilter = keyword ? keyword.toLowerCase() : '';
 
         let filtered = reports;
 
         if (categoryFilter) {
             filtered = filtered.filter(report => report.category.toLowerCase() === categoryFilter);
+        }
+
+        if (keywordFilter) {
+            filtered = filtered.filter(report =>
+                report.title.toLowerCase().includes(keywordFilter) ||
+                report.author.toLowerCase().includes(keywordFilter) ||
+                report.category.toLowerCase().includes(keywordFilter) ||
+                report.tags.some(tag => tag.toLowerCase().includes(keywordFilter))
+            );
         }
 
         setFilteredReports(filtered);

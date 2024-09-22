@@ -18,7 +18,6 @@ function Landing() {
     };
 
     const handleSimpleSearch = () => {
-        // Navigate with the searchKeyword state
         navigate('/home', { state: { keyword: searchKeyword } });
     };
 

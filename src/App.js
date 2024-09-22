@@ -1,5 +1,3 @@
-// App.js
-
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Artifacts from './components/Artifacts';
@@ -16,6 +14,7 @@ import Service from './components/Service';
 import Report from './components/Report';
 import UploadReport from './components/UploadReport';
 import ViewModelMain from './components/ViewModelMain';
+import PrivateRoute from './components/helpers/PrivateRoute';
 import { useState } from 'react';
 
 function App() {
@@ -39,8 +38,8 @@ function App() {
       <NavBar user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/upload" element={<PrivateRoute element={Upload} user={user} />} />
+        <Route path="/profile" element={<PrivateRoute element={Profile} user={user} />} />
         <Route path="/model" element={<Artifacts />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/" element={<Landing />} />
@@ -48,7 +47,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
-        <Route path="/upload-reports" element={<UploadReport />} />
+        <Route path="/upload-reports" element={<PrivateRoute element={UploadReport} user={user} />} />
         <Route path="/model/view-model" element={<ViewModelMain />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

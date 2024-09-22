@@ -67,6 +67,7 @@ function NavBar({ user, onLogout }) {
                                 </svg>
                                 {isDropdownVisible && (
                                     <div className="dropdown-menu">
+                                        <button onClick={() => navigate("/profile")}>Profile</button>
                                         <button onClick={handleLogout}>Logout</button>
                                     </div>
                                 )}

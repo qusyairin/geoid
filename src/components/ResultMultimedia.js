@@ -4,10 +4,11 @@ import "../style.css";
 import ImageViewer from 'react-simple-image-viewer';
 import VideoViewer from './modal/VideoViewer';
 
-function ResultMultimedia({ category }) {
+function ResultMultimedia({ category, keyword }) {
     const [currentMedia, setCurrentMedia] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
+    const [multimediaItems, setMultimediaItems] = useState([]); // Store original items
     const [filteredMultimedia, setFilteredMultimedia] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -15,7 +16,8 @@ function ResultMultimedia({ category }) {
         const fetchMultimedia = async () => {
             try {
                 const response = await axios.get('https://geoid-rest.vercel.app/media');
-                setFilteredMultimedia(response.data);
+                setMultimediaItems(response.data);
+                setFilteredMultimedia(response.data); // Initialize filtered items
                 setLoading(false); // Set loading to false after data is fetched
             } catch (error) {
                 console.error('Error fetching multimedia data:', error);
@@ -28,15 +30,24 @@ function ResultMultimedia({ category }) {
 
     useEffect(() => {
         const categoryFilter = category ? category.toLowerCase() : '';
+        const keywordFilter = keyword ? keyword.toLowerCase() : '';
 
-        let filtered = filteredMultimedia;
+        let filtered = multimediaItems;
 
         if (categoryFilter) {
             filtered = filtered.filter(multimedia => multimedia.category.toLowerCase() === categoryFilter);
         }
 
+        if (keywordFilter) {
+            filtered = filtered.filter(multimedia =>
+                multimedia.name.toLowerCase().includes(keywordFilter) ||
+                multimedia.location.toLowerCase().includes(keywordFilter) ||
+                multimedia.category.toLowerCase().includes(keywordFilter)
+            );
+        }
+
         setFilteredMultimedia(filtered);
-    }, [category, filteredMultimedia]);
+    }, [category, keyword, multimediaItems]); // Add multimediaItems to the dependency array
 
     const openMediaViewer = useCallback((index) => {
         const media = filteredMultimedia[index];
@@ -61,8 +72,8 @@ function ResultMultimedia({ category }) {
                 Multimedia: {resultCount} result{resultCount !== 1 ? 's' : ''} found
             </h1>
             <div className="artifacts-grid">
-                {filteredMultimedia.length === 0 ? (
-                    <p>No multimedia found for the selected category.</p>
+                {resultCount === 0 ? (
+                    <p>No multimedia found.</p>
                 ) : (
                     filteredMultimedia.map((item, index) => (
                         <div className="artifact-card" key={item._id} onClick={() => openMediaViewer(index)}>
