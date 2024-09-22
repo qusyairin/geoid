@@ -162,54 +162,71 @@ function Upload() {
 
   const handleUpload = () => {
     setIsLoading(true);
-    //upload model first
+  
     const fileRef = ref(bucketDb, `${uploadedFileName}`);
     const imgRef = ref(bucketDb, `${uploadedImgName}`);
+  
+    // Upload the model first and get its URL
     uploadBytes(fileRef, model)
-      .then(uploadResult => {
-        return getDownloadURL(uploadResult.ref);
-      }).then(url => {
-
-        setModelLink(url);
-
-        uploadBytes(imgRef, imgPreview)
-          .then(uploadResult => {
-            return getDownloadURL(uploadResult.ref)
-          }).then(url => {
-            setImgLink(url)
-
-            if (validateForm()){
+      .then(uploadResult => getDownloadURL(uploadResult.ref))
+      .then(modelUrl => {
+        setModelLink(modelUrl);
+  
+        // Then upload the image and get its URL
+        return uploadBytes(imgRef, imgPreview)
+          .then(uploadResult => getDownloadURL(uploadResult.ref))
+          .then(imgUrl => {
+            setImgLink(imgUrl);
+  
+            // Only when both URLs are available, proceed with form validation and sending data
+            if (validateForm()) {
               const modelData = {
-                name: "Thinly-bedded sedimentary rocks",
-                location: "Pendang, Kedah",
-                imgSrc: "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.png?alt=media&token=539ccaa7-b946-476d-bcea-6b94f074655b",
-                model: "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.glb?alt=media&token=eaf38de4-30e7-43e0-abde-df69d68ecb6e",
+                name: title,
+                location: `${selectedDistrict}, ${selectedState}`,
+                imgSrc: imgUrl,    // Use the resolved image URL
+                model: modelUrl,   // Use the resolved model URL
                 data: {
-                  title: "Thinly-bedded sedimentary rocks",
+                  title: title,
                   author: "Digital Geoscience Global",
-                  country: "Malaysia",
-                  state: "Kedah",
-                  district: "Pokok Sena",
-                  city: "N/A",
-                  type: "Geology",
-                  discipline: "General Geology",
-                  formation: "Semanggol Formation",
-                  rockType: "Sedimentary Rock",
-                  majorLithology: "Chert",
-                  age: "Triassic",
+                  country: country,
+                  state: selectedState,
+                  district: selectedDistrict,
+                  city: city,
+                  type: discipline === 'archaeology' ? 'Archaeology' : 'Geology',
+                  discipline: discipline,
+                  formation: formation,
+                  rockType: rockType,
+                  majorLithology: majorLithology,
+                  age: age,
+                  origin: origin,
+                  excavation: excavation,
                   license: "CC Attribution",
-                  published: "2 years ago",
-                  downloadPath: "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/model1.glb?alt=media&token=eaf38de4-30e7-43e0-abde-df69d68ecb6e",
-                  arPath: "https://firebasestorage.googleapis.com/v0/b/geoid-c320b.appspot.com/o/qr1.png?alt=media&token=b7e55144-087c-4d39-919d-1728d9c261d2",
-                  keyword: "kebun 500"
+                  published: new Date().toLocaleString(),
+                  downloadPath: modelUrl,
+                  keyword: keywords
                 }
               };
-              setShowModal(true);
+  
+              // Send the model data to the server
+              return axios.post('https://geoid-rest.vercel.app/models', modelData);
+            } else {
+              return Promise.reject(new Error('Form validation failed'));
             }
-          })
-
+          });
       })
-  };
+      .then(response => {
+        console.log('Upload Response:', response);
+        setShowModal(true);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setErrorMessage(error.response?.data || 'An error occurred');
+        setIsErrorModalOpen(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };  
 
   const closeModal = () => {
     setShowModal(false);
