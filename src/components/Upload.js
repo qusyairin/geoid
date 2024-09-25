@@ -424,10 +424,7 @@ function Upload() {
 
             <div className="form-group">
               <label>Age <span className="required">*</span></label>
-              <select onChange={handleAgeChange}>
-                <option value="">Select Age / Historical Period</option>
-                <option value="triassic">Triassic</option>
-              </select>
+              <input type="text" onChange={handleAgeChange} />
               {errors.age && <p className="error-text">{errors.age}</p>}
             </div>
 

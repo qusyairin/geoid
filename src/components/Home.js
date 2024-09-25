@@ -21,6 +21,9 @@ function Home() {
     const [resultCount, setResultCount] = useState(null);
     const [currentView, setCurrentView] = useState('model');
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [modelData, setModelData] = useState([])
+    const [reportData, setReportData] = useState([])
+    const [loading, setLoading] = useState(false);
 
     const markerData = [
         {
@@ -71,10 +74,6 @@ function Home() {
         setCurrentView(view);
     };
 
-    const handleMarkerClick = (path) => {
-        navigate(path); // Navigate to the specified path
-    };
-
     useEffect(() => {
         if (keyword) {
             const filtered = markerData.filter(marker => marker.keyword.toLowerCase() === keyword.toLowerCase());
@@ -98,6 +97,79 @@ function Home() {
     useEffect(() => {
         setResultCount(filteredMarker.length);
     }, [filteredMarker]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true)
+                const modelsResponse = await fetch('https://geoid-rest.vercel.app/models');
+                const reportsResponse = await fetch('https://geoid-rest.vercel.app/paper_report');
+                const modelRes = await modelsResponse.json()
+                const reportRes = await reportsResponse.json()
+
+                const filteredModelData = modelRes.filter(model => 
+                    model.data && 
+                    model.data.latitude && 
+                    model.data.longitude &&
+                    !isNaN(parseFloat(model.data.latitude)) &&
+                    !isNaN(parseFloat(model.data.longitude))
+                );
+
+                const filteredReportData = reportRes.filter(report => 
+                    report && 
+                    report.latitude && 
+                    report.longitude &&
+                    !isNaN(parseFloat(report.latitude)) &&
+                    !isNaN(parseFloat(report.longitude))
+                );
+                
+                setModelData(filteredModelData)
+                setReportData(filteredReportData)
+                
+            } catch (error) {
+                console.error('Error fetching user uploads:', error);
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, []);
+
+    const ModelMarker = () => {
+        return (
+          <div
+            style={{
+              position: 'absolute',
+              transform: 'translate(-50%, -50%)',
+              left: '50%',
+              top: '50%',
+              width: '20px',
+              height: '20px',
+              borderRadius: '50%',
+              backgroundColor: 'yellow',
+              border: '2px solid black',
+            }}
+          />
+        );
+    };
+    
+    const ReportMarker = () => {
+        return (
+          <div
+            style={{
+              position: 'absolute',
+              transform: 'translate(-50%, -50%)',
+              left: '50%',
+              top: '50%',
+              width: '20px',
+              height: '20px',
+              backgroundColor: 'orange',
+              border: '2px solid black',
+            }}
+          />
+        );
+    };
 
     const Marker = ({ text, path, type }) => (
         <div
@@ -143,6 +215,11 @@ function Home() {
 
     return (
         <div style={{ height: "100vh", width: "100%" }}>
+            {loading && (
+                <div className="loading-overlay">
+                    <div className="spinner"></div>
+                </div>
+            )}
             <GoogleMap
                 defaultCenter={{ lat: 4.156156, lng: 103.502969 }}
                 defaultZoom={7}
@@ -150,14 +227,17 @@ function Home() {
                 onGoogleApiLoaded={onGoogleApiLoaded}
                 onChange={(map) => console.log('Map moved', map)}
             >
-                {filteredMarker.map((marker, index) => (
-                    <Marker
-                        text={marker.text}
-                        lat={marker.lat}
-                        lng={marker.lng}
-                        path={marker.path}
-                        type={marker.type}
-                        key={index}
+                {modelData.map((marker) => (
+                    <ModelMarker
+                        lat={parseFloat(marker.data.latitude)}
+                        lng={parseFloat(marker.data.longitude)}
+                    />
+                ))}
+
+                {reportData.map((marker) => (
+                    <ReportMarker
+                        lat={parseFloat(marker.latitude)}
+                        lng={parseFloat(marker.longitude)}
                     />
                 ))}
             </GoogleMap>
