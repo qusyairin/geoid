@@ -26,6 +26,22 @@ function Landing() {
             <h1 className='title'>GeoID</h1>
             <p style={{color: 'white', fontWeight: 'bold'}}>Geospatial Integrated Database</p>
             <p className='system-name'>Discover Immersive Diary of The Earth</p>
+            
+            {/* New introduction section */}
+            <div className="intro-section">
+                <h2>Welcome to GeoID</h2>
+                <p>
+                    GeoID is a centralized digital platform that consolidates localized geospatial data, 
+                    improving data accessibility with cost-efficient solutions. Our platform:
+                </p>
+                <ul>
+                    <li>Enhances data visualization, improving decision-making.</li>
+                    <li>Enhances data science skills of professionals and stimulates interest in S&T among the youngest.</li>
+                    <li>Safeguards valuables (e.g., geological heritage).</li>
+                    <li>Enhances the sustainability & competitiveness of local industries.</li>
+                </ul>
+            </div>
+
             <div className='search-bar'>
                 <input type='text' 
                     placeholder='Search ...' 

@@ -2,20 +2,22 @@ import "../style.css";
 import { useEffect, useState } from "react";
 
 function FilterMenu({ onApplyFilter, reset }) {
-    const [category, setCategory] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
     const [country, setCountry] = useState("");
     const [result, setResult] = useState(null);
 
     const handleApply = () => {
-        onApplyFilter(category);
-    }
+        onApplyFilter(selectedState, selectedCategory);
+    };
 
     const handleReset = () => {
-        setCategory("");
+        setSelectedState("");
+        setSelectedCategory("");
         setCountry("");
-        setResult(null)
+        setResult(null);
         reset();
-    }
+    };
 
     return (
         <div
@@ -31,15 +33,15 @@ function FilterMenu({ onApplyFilter, reset }) {
                 zIndex: 500,
             }}
         >
-            <div style={{ display: 'flex' }}>
-                <div style={{ marginRight: '2rem' }}>
+            <div style={{ display: "flex" }}>
+                <div style={{ marginRight: "2rem" }}>
                     <div>
                         <label>
-                            <select 
+                            <select
                                 className="dropdown"
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
-                                >
+                            >
                                 <option value="" selected>
                                     Country
                                 </option>
@@ -48,18 +50,18 @@ function FilterMenu({ onApplyFilter, reset }) {
                         </label>
                     </div>
 
-                    <div className="reset-button" onClick={handleReset} style={{ marginTop: '20px' }}>
+                    <div className="reset-button" onClick={handleReset} style={{ marginTop: "20px" }}>
                         <button>Reset Search & Filter</button>
                     </div>
                 </div>
 
-                <div style={{ marginRight: '2rem' }}>
+                <div style={{ marginRight: "2rem" }}>
                     <div>
                         <label>
                             <select
                                 className="dropdown"
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
+                                value={selectedState}
+                                onChange={(e) => setSelectedState(e.target.value)}
                             >
                                 <option value="" selected>
                                     State
@@ -84,19 +86,18 @@ function FilterMenu({ onApplyFilter, reset }) {
                         </label>
                     </div>
 
-                    <div className="apply-button" style={{ marginTop: '20px', color: '#b5205e !important' }}>
+                    <div className="apply-button" style={{ marginTop: "20px", color: "#b5205e !important" }}>
                         <button onClick={handleApply}>Apply Filter</button>
                     </div>
                 </div>
-                <div style={{ marginRight: '2rem' }}>
-                {country !== "" && ( 
-                    <>
+
+                <div style={{ marginRight: "2rem" }}>
                     <div>
                         <label>
                             <select
                                 className="dropdown"
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
                             >
                                 <option value="" selected>
                                     Category
@@ -106,46 +107,47 @@ function FilterMenu({ onApplyFilter, reset }) {
                             </select>
                         </label>
                     </div>
-                    </>
-                )}
 
-                    {category === "geology" && country !== "" && ( 
+                    {selectedCategory === "geology" && country !== "" && (
                         <>
-                         <div style={{ marginTop: '20px' }}>
+                            <div style={{ marginTop: "20px" }}>
+                                <div>
+                                    <label>
+                                        <select className="dropdown">
+                                            <option value="" selected>
+                                                Major Lithology
+                                            </option>
+                                            <option value="chert">Chert</option>
+                                            <option value="phyllite">Phyllite & quartzite metasediment</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
+
+                {/* Geology-related filters */}
+                {selectedCategory === "geology" && country !== "" && (
+                    <>
+                        <div style={{ marginRight: "2rem" }}>
                             <div>
                                 <label>
                                     <select className="dropdown">
                                         <option value="" selected>
-                                            Major Lithology
+                                            Disciplines
                                         </option>
-                                        <option value="chert">Chert</option>
-                                        <option value="phyllite">Phyllite & quartzite metasediment</option>
+                                        <option value="gAll">Geology - all</option>
+                                        <option value="gGeneral">Geology - general</option>
+                                        <option value="gONG">Geology - oil & gas</option>
+                                        <option value="gMining">Geology - mining</option>
+                                        <option value="gEngineering">Geology - engineering/geotechnical</option>
+                                        <option value="gEnvironment">Geology - environment</option>
                                     </select>
                                 </label>
                             </div>
-                        </div>
-                        </> )}
-                </div>
 
-                <div style={{ marginRight: '2rem' }}>
-                    {category === "geology" && country !== "" && (
-                        <>
-                        <div>
-                            <label>
-                                <select className="dropdown">
-                                    <option value="" selected>
-                                        Disciplines
-                                    </option>
-                                    <option value="gAll">Geology- all</option>
-                                    <option value="gGeneral">Geology- general</option>
-                                    <option value="gONG"> Geology- oil & gas</option>
-                                    <option value="gMining">Geology- mining</option>
-                                    <option value="gEngineering">Geology- engineering/ geotechnical</option>
-                                    <option value="gEnvironment"> Geology- environment</option>
-                                </select>
-                            </label>
-                         </div>
-                            <div style={{ marginTop: '20px' }}>
+                            <div style={{ marginTop: "20px" }}>
                                 <label>
                                     <select className="dropdown">
                                         <option value="" selected>
@@ -159,13 +161,9 @@ function FilterMenu({ onApplyFilter, reset }) {
                                     </select>
                                 </label>
                             </div>
-                        </>
-                    )}
-                </div>
+                        </div>
 
-                {category === "geology" && country !== "" && (
-                    <>
-                        <div style={{ marginRight: '2rem' }}>
+                        <div style={{ marginRight: "2rem" }}>
                             <div>
                                 <label>
                                     <select className="dropdown">
@@ -179,7 +177,7 @@ function FilterMenu({ onApplyFilter, reset }) {
                                 </label>
                             </div>
 
-                            <div style={{ marginTop: '20px' }}>
+                            <div style={{ marginTop: "20px" }}>
                                 <label>
                                     <select className="dropdown">
                                         <option value="" selected>
@@ -187,7 +185,7 @@ function FilterMenu({ onApplyFilter, reset }) {
                                         </option>
                                         <option value="triassic">Triassic</option>
                                         <option value="permian">Early Permian - Middle Triassic</option>
-                                        <option value="oligocene">Oligocene -Lower Miocene</option>
+                                        <option value="oligocene">Oligocene - Lower Miocene</option>
                                         <option value="carboniferous">Carboniferous</option>
                                     </select>
                                 </label>
