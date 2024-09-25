@@ -143,6 +143,9 @@ function UploadReport() {
   const handleUpload = () => {
     setIsLoading(true);
 
+    const savedUser = JSON.parse(localStorage.getItem('user'));
+    const userId = savedUser ? savedUser.user._id : null;
+
     const fileRef = ref(bucketDb, `${uploadedFileName}`);
     uploadBytes(fileRef, file)
       .then(uploadResult => {
@@ -151,7 +154,6 @@ function UploadReport() {
       .then(url => {
         console.log(url);
         setFileLink(url);
-
         if (validateForm()) {
           const tags = keywords.split(',').map(tag => tag.trim());
           const reportData = {
@@ -168,7 +170,9 @@ function UploadReport() {
             category: discipline,
             tags: tags,
             lat: latitude,
-            long: longitude
+            long: longitude,
+            access: '',
+            userId: userId
           };
 
           return axios.post('https://geoid-rest.vercel.app/paper_report', reportData);

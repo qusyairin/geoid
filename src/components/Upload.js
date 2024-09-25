@@ -165,7 +165,8 @@ function Upload() {
   
     const fileRef = ref(bucketDb, `${uploadedFileName}`);
     const imgRef = ref(bucketDb, `${uploadedImgName}`);
-  
+    const savedUser = JSON.parse(localStorage.getItem('user'));
+    const userId = savedUser ? savedUser.user._id : null;
     // Upload the model first and get its URL
     uploadBytes(fileRef, model)
       .then(uploadResult => getDownloadURL(uploadResult.ref))
@@ -177,7 +178,6 @@ function Upload() {
           .then(uploadResult => getDownloadURL(uploadResult.ref))
           .then(imgUrl => {
             setImgLink(imgUrl);
-  
             // Only when both URLs are available, proceed with form validation and sending data
             if (validateForm()) {
               const modelData = {
@@ -204,7 +204,9 @@ function Upload() {
                   published: new Date().toLocaleString(),
                   downloadPath: modelUrl,
                   keyword: keywords
-                }
+                },
+                access: '',
+                userId: userId
               };
   
               // Send the model data to the server

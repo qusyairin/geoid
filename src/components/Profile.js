@@ -6,6 +6,71 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { bucketDb } from './helpers/Config';
 
+function UploadsModal({ isOpen, onClose, uploads, onDelete }) {
+    if (!isOpen) return null;
+
+    const handleDelete = (type, id) => {
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            onDelete(type, id);
+        }
+    };
+
+    return (
+        <div className="modal-overlay">
+            <div className="modal-content-upload uploads-modal">
+                <h2>My Uploads</h2>
+                <div className="uploads-section">
+                    <h3>Models</h3>
+                    {uploads.models.length > 0 ? (
+                        <ul>
+                            {uploads.models.map((model, index) => (
+                                <li key={index}>
+                                    <span>{model.name || `Model ${index + 1}`}</span>
+                                    <button 
+                                        className="delete-button" 
+                                        onClick={() => handleDelete('model', model._id)}
+                                        aria-label="Delete model"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                        </svg>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No models uploaded yet.</p>
+                    )}
+                </div>
+                <div className="uploads-section">
+                    <h3>Reports</h3>
+                    {uploads.reports.length > 0 ? (
+                        <ul>
+                            {uploads.reports.map((report, index) => (
+                                <li key={index}>
+                                    <span>{report.title || `Report ${index + 1}`}</span>
+                                    <button 
+                                        className="delete-button" 
+                                        onClick={() => handleDelete('report', report._id)}
+                                        aria-label="Delete report"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                        </svg>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No reports uploaded yet.</p>
+                    )}
+                </div>
+                <button className="modal-close-button" onClick={onClose}>Close</button>
+            </div>
+        </div>
+    );
+}
+
 function Profile() {
     const [profileData, setProfileData] = useState({
         username: '',
@@ -14,13 +79,16 @@ function Profile() {
         address: '',
         tagline: '',
         email: '',
-        profile_picture_url: ''
+        profile_picture_url: '',
+        type: '',
     });
 
     const [originalData, setOriginalData] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
+    const [showUploadsModal, setShowUploadsModal] = useState(false);
+    const [userUploads, setUserUploads] = useState({ models: [], reports: [] });
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -33,22 +101,26 @@ function Profile() {
                     const response = await fetch(`https://geoid-rest.vercel.app/users/${userId}`);
                     const data = await response.json();
                     setProfileData({
+                        id: data.id,
                         username: data.username,
                         biography: data.biography || '',
                         displayName: data.display_name,
                         profile_picture_url: data.profile_picture_url,
                         address: data.address || '',
                         tagline: data.tagline || '',
-                        email: data.email
+                        email: data.email,
+                        type: data.type
                     });
                     setOriginalData({
+                        id: data.id,
                         username: data.username,
                         biography: data.biography || '',
                         displayName: data.display_name,
                         profile_picture_url: data.profile_picture_url || '',
                         address: data.address || '',
                         tagline: data.tagline || '',
-                        email: data.email
+                        email: data.email,
+                        type: data.type
                     });
                 } else {
                     console.error('User ID not found in localStorage');
@@ -62,6 +134,32 @@ function Profile() {
 
         fetchProfileData();
     }, []);
+
+    const fetchUserUploads = async () => {
+        try {
+            setLoading(true)
+            const savedUser = JSON.parse(localStorage.getItem('user'));
+            const userId = savedUser ? savedUser.user._id : null;
+            const modelsResponse = await fetch('https://geoid-rest.vercel.app/models');
+            const reportsResponse = await fetch('https://geoid-rest.vercel.app/paper_report');
+            
+            const modelsData = await modelsResponse.json();
+            const reportsData = await reportsResponse.json();
+            const userModels = modelsData.filter(model => model.userId === userId);
+            const userReports = reportsData.filter(report => report.userId === userId);
+
+            setUserUploads({ models: userModels, reports: userReports });
+        } catch (error) {
+            console.error('Error fetching user uploads:', error);
+        } finally {
+            setLoading(false)
+        }
+    };
+
+    const handleShowUploads = () => {
+        fetchUserUploads();
+        setShowUploadsModal(true);
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -150,6 +248,30 @@ function Profile() {
         document.getElementById('fileInput').click(); // Trigger the file input click
     };
 
+    const handleDelete = async (type, id) => {
+        try {
+            const endpoint = type === 'model' ? 'models' : 'paper_report';
+            const response = await fetch(`https://geoid-rest.vercel.app/${endpoint}/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                setUserUploads(prevUploads => ({
+                    ...prevUploads,
+                    [type + 's']: prevUploads[type + 's'].filter(item => item.id !== id)
+                }));
+                toast.success(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully!`);
+            } else {
+                toast.error(`Failed to delete ${type}`);
+            }
+        } catch (error) {
+            console.error(`Error deleting ${type}:`, error);
+            toast.error(`Error deleting ${type}`);
+        }
+
+        fetchUserUploads();
+    };
+
     return (
         <div className="profile-container">
             {loading && (
@@ -183,6 +305,9 @@ function Profile() {
                         <p>{profileData.displayName}</p>
                     </div>
                 </div>
+                {profileData.type === 'owner' &&(
+                    <button className="models-button" onClick={handleShowUploads}>My Uploads {'>'}</button>
+                )}
             </div>
 
             <form className="profile-form" onSubmit={handleSubmit}>
@@ -260,6 +385,12 @@ function Profile() {
                 </div>
             </form>
             <ToastContainer />
+            <UploadsModal 
+                isOpen={showUploadsModal} 
+                onClose={() => setShowUploadsModal(false)} 
+                uploads={userUploads} 
+                onDelete={handleDelete}
+            />
         </div>
     );
 }

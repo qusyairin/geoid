@@ -408,8 +408,8 @@
 
 .models-button {
     background-color: transparent;
-    color: #2a9d8f;
-    border: 2px solid #2a9d8f;
+    color: #2a699d;
+    border: 2px solid #2a699d;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -417,7 +417,7 @@
 }
 
 .models-button:hover {
-    background-color: #2a9d8f;
+    background-color: #2a699d;
     color: #ffffff;
 }
 
@@ -756,22 +756,26 @@
 .report-download {
     display: flex;
     flex-direction: column;
-    width: 9rem;
-    align-content: center;
+    width: 120px; /* Fixed width */
+    min-width: 120px; /* Ensure it doesn't shrink */
+    align-items: center; /* Center items horizontally */
     justify-content: center;
+    gap: 10px;
     border-left: 0.5px solid rgb(228 228 228);
+    padding-left: 20px; /* Add some padding to separate from the description */
 }
 
 .download-button {
     color: rgb(0, 166, 255);
     cursor: pointer;
+    width: 100%; /* Make buttons full width of the container */
+    text-align: center; /* Center text in buttons */
+    margin: 5px 0; /* Add some vertical spacing between buttons */
 }
 
 .download-button:hover {
     color: rgb(2, 102, 156);
-    cursor: pointer;
 }
-
 .report-title {
     font-size: 1.25rem;
     font-weight: bold;
@@ -1262,4 +1266,62 @@ margin-left: 5px;
 color: red;
 font-size: 0.875rem;
 margin-top: 0.5rem;
+}
+
+.view-more {
+    color: #2a699d;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+.uploads-modal {
+    width: 100%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.uploads-section {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.uploads-section h3 {
+    margin-bottom: 10px;
+}
+
+.uploads-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.uploads-section li {
+    margin-bottom: 5px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px groove #1c621b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.delete-button svg {
+    fill: #ff0000;
+    transition: fill 0.3s ease;
+}
+
+.delete-button:hover svg {
+    fill: #cc0000;
 }

@@ -10,6 +10,7 @@ function Report() {
     const [selectedReport, setSelectedReport] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [expandedReports, setExpandedReports] = useState({});
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -54,6 +55,13 @@ function Report() {
         setSearchQuery(e.target.value); // Update search query
     };
 
+    const toggleDescription = (index) => {
+        setExpandedReports(prevState => ({
+            ...prevState,
+            [index]: !prevState[index]
+        }));
+    };
+
     if (loading) {
         return (
             <div className="loading-screen">
@@ -85,7 +93,16 @@ function Report() {
                         <div>
                             <h3 className="report-title">{report.title}</h3>
                             <p className="report-description">{report.author} • {report.year} • {report.linkSource}</p>
-                            <p className="report-description">{report.description}</p>
+                            <p className="report-description">
+                                {expandedReports[index] || report.description.length <= 170
+                                    ? report.description
+                                    : `${report.description.slice(0, 170)}...`}
+                                {report.description.length > 170 && (
+                                    <p className="view-more" onClick={() => toggleDescription(index)}>
+                                        {expandedReports[index] ? 'View Less' : 'View More'}
+                                    </p>
+                                )}
+                            </p>
                             <div className="report-tags">
                                 {report.tags.map((tag, idx) => (
                                     <span className="report-tag" key={idx}>{tag}</span>
@@ -122,8 +139,13 @@ function Report() {
                     </div>
                 ))}
             </div>
-            {showModal && selectedReport && (
-                <Purchase report={selectedReport} onClose={handleCloseModal} />
+
+            {/* Modal for purchase */}
+            {showModal && (
+                <Purchase
+                    report={selectedReport}
+                    onClose={handleCloseModal}
+                />
             )}
         </div>
     );
