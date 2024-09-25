@@ -1,10 +1,13 @@
 import '../style.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SuccessfulUpload from './modal/SuccessfulUpload';
 import malaysiaData from '../components/helpers/states.json';
 import axios from 'axios';
 import { bucketDb } from './helpers/Config.js';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import GoogleMap from 'google-maps-react-markers';
+
+const DefaultLocation = { lat: 4.156156, lng: 103.502969 };
 
 function Upload() {
   const [uploadedFileName, setUploadedFileName] = useState("");
@@ -35,6 +38,7 @@ function Upload() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [location, setLocation] = useState(DefaultLocation);
   const [modelLink, setModelLink] = useState("");
   const [imgLink, setImgLink] = useState("");
 
@@ -167,12 +171,14 @@ function Upload() {
     const imgRef = ref(bucketDb, `${uploadedImgName}`);
     const savedUser = JSON.parse(localStorage.getItem('user'));
     const userId = savedUser ? savedUser.user._id : null;
-    // Upload the model first and get its URL
-    uploadBytes(fileRef, model)
+
+    if (uploadedFileName) {
+      // Upload the model first and get its URL
+      uploadBytes(fileRef, model)
       .then(uploadResult => getDownloadURL(uploadResult.ref))
       .then(modelUrl => {
         setModelLink(modelUrl);
-  
+
         // Then upload the image and get its URL
         return uploadBytes(imgRef, imgPreview)
           .then(uploadResult => getDownloadURL(uploadResult.ref))
@@ -203,12 +209,14 @@ function Upload() {
                   license: "CC Attribution",
                   published: new Date().toLocaleString(),
                   downloadPath: modelUrl,
+                  latitude: latitude.toString(),
+                  longitude: longitude.toString(),
                   keyword: keywords
                 },
                 access: '',
                 userId: userId
               };
-  
+
               // Send the model data to the server
               return axios.post('https://geoid-rest.vercel.app/models', modelData);
             } else {
@@ -227,7 +235,11 @@ function Upload() {
       })
       .finally(() => {
         setIsLoading(false);
-      });
+      }); 
+    } else {
+      alert("File must be uploaded!")
+      setIsLoading(false);
+    }
   };  
 
   const closeModal = () => {
@@ -244,6 +256,33 @@ function Upload() {
     const selectedStateObj = states.find(s => s.name === state);
     setDistricts(selectedStateObj ? selectedStateObj.districts : []);
     setSelectedDistrict("");
+  };
+
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const mapRef = useRef(null);
+
+  const handleMapLoad = (map) => {
+    mapRef.current = map;
+    setMapLoaded(true);
+  };
+
+  const Marker = () => {
+    return (
+      <div
+        draggable={true}
+        style={{
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          left: '50%',
+          top: '50%',
+          width: '20px',
+          height: '20px',
+          borderRadius: '50%',
+          backgroundColor: 'yellow',
+          border: '2px solid black',
+        }}
+      />
+    );
   };
 
   return (
@@ -403,18 +442,42 @@ function Upload() {
             <div className="coordinate-container">
               <div className="coordinate-item">
                 <span className="coordinate-label">Lat</span>
-                <input type="text" placeholder="Latitude" onChange={handleLatitudeChange} />
+                <input type="text" placeholder="Latitude" value={location.lat} onChange={handleLatitudeChange} />
                 {errors.latitude && <p className="error-text">{errors.latitude}</p>}
               </div>
               <div className="coordinate-item">
                 <span className="coordinate-label">Long</span>
-                <input type="text" placeholder="Longitude" onChange={handleLongitudeChange}/>
+                <input type="text" placeholder="Longitude" value={location.lng} onChange={handleLongitudeChange}/>
                 {errors.longitude && <p className="error-text">{errors.longitude}</p>}
               </div>
             </div>
-          </div>
+              <div className='form-group'>
+                <div className='map-container'>
+                <GoogleMap
+                    defaultCenter={{ lat: 4.156156, lng: 103.502969 }}
+                    onGoogleApiLoaded={({ map, maps }) => handleMapLoad(map, maps)}
+                    defaultZoom={7}
+                    style={{ height: '100%', width: '100%' }}
+                    apiKey=''
+                  >
+                    <Marker
+                      draggable={true}
+                      lat={parseFloat(latitude) || location.lat}
+                      lng={parseFloat(longitude) || location.lng}
+                      onDragEnd={(e, { latLng }) => {
+                        setTimeout(() => {
+                          setLatitude(latLng.lat)
+                          setLongitude(latLng.lng)
+                          setLocation(latLng);
+                        }, 1000);
+                      }}
+                    />
+                  </GoogleMap>
+                </div>
+              </div>
 
           <button className="upload-button" onClick={handleUpload}>Upload</button>
+          </div>
         </div>
       </div>
       {showModal && (

@@ -19,6 +19,20 @@
     text-align: center;
     width: 300px;
   }
+
+  .modal-content-map {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    width: 700px;
+  }
+
+  .map-container {
+    width: 610px;
+    height: 280px; /* Adjust the height as needed */
+    margin-bottom: 20px;
+  }
   
   .modal-close-button {
     background-color: #2a699d;
