@@ -15,6 +15,7 @@ import Report from './components/Report';
 import UploadReport from './components/UploadReport';
 import ViewModelMain from './components/ViewModelMain';
 import PrivateRoute from './components/helpers/PrivateRoute';
+import AdminDashboard from './components/AdminDashboard';
 import { useState } from 'react';
 
 function App() {
@@ -38,17 +39,18 @@ function App() {
       <NavBar user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/upload" element={<PrivateRoute element={Upload} user={user} />} />
-        <Route path="/profile" element={<PrivateRoute element={Profile} user={user} />} />
+        <Route path="/upload" element={<PrivateRoute element={Upload} user={user} isAdmin={user ? user.type : ''} adminOnly={false}/>} />
+        <Route path="/profile" element={<PrivateRoute element={Profile} user={user} isAdmin={user ? user.type : ''} adminOnly={false}/>} />
         <Route path="/model" element={<Artifacts />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/" element={<Landing />} />
         <Route path="/multimedia" element={<Multimedia />} />
         <Route path="/register" element={<Register />} />
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
-        <Route path="/upload-reports" element={<PrivateRoute element={UploadReport} user={user} />} />
+        <Route path="/upload-reports" element={<PrivateRoute element={UploadReport} user={user} isAdmin={user ? user.type : ''} adminOnly={false}/>} />
         <Route path="/model/view-model" element={<ViewModelMain />} />
+        <Route path="/admin-dashboard" element={<PrivateRoute element={AdminDashboard} user={user} isAdmin={user ? user.type : ''} adminOnly={true}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

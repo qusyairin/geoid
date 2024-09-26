@@ -1,8 +1,15 @@
-// PrivateRoute.js
 import { Navigate } from 'react-router-dom';
 
-function PrivateRoute({ element: Component, user, ...rest }) {
-  return user ? <Component {...rest} /> : <Navigate to="/login" replace />;
+function PrivateRoute({ element: Component, user, isAdmin, adminOnly, ...rest }) {
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (adminOnly && isAdmin !== 'admin') {
+    return <Navigate to="/home" replace />;
+  }
+
+  return <Component {...rest} />;
 }
 
 export default PrivateRoute;
