@@ -36,6 +36,7 @@ function UploadReport() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [location, setLocation] = useState(DefaultLocation);
+  const [access, setAccess] = useState("");
 
   useEffect(() => {
     if (malaysiaData && malaysiaData.states) {
@@ -103,12 +104,28 @@ function UploadReport() {
     setRedirectLink(event.target.value);
   };
 
-  const handleLatitudeChange = (event) => {
-    setLatitude(event.target.value);
+  const handleAccessChange = (event) => {
+    setAccess(event.target.value);
   };
 
+  const handleLatitudeChange = (event) => {
+    const newLat = parseFloat(event.target.value);
+    if (!isNaN(newLat)) {
+      setLatitude(newLat);
+      setLocation((prevLocation) => ({ ...prevLocation, lat: newLat }));
+    } else {
+      setLatitude(event.target.value); // Keep the input string in case of invalid value
+    }
+  };
+  
   const handleLongitudeChange = (event) => {
-    setLongitude(event.target.value);
+    const newLng = parseFloat(event.target.value);
+    if (!isNaN(newLng)) {
+      setLongitude(newLng);
+      setLocation((prevLocation) => ({ ...prevLocation, lng: newLng }));
+    } else {
+      setLongitude(event.target.value); // Keep the input string in case of invalid value
+    }
   };
 
   const closeErrorModal = () => {
@@ -177,7 +194,7 @@ function UploadReport() {
             tags: tags,
             lat: latitude.toString(),
             long: longitude.toString(),
-            access: '',
+            access: access,
             userId: userId
           };
 
@@ -252,20 +269,9 @@ function UploadReport() {
 
   const Marker = () => {
     return (
-      <div
-        draggable={true}
-        style={{
-          position: 'absolute',
-          transform: 'translate(-50%, -50%)',
-          left: '50%',
-          top: '50%',
-          width: '20px',
-          height: '20px',
-          borderRadius: '50%',
-          backgroundColor: 'yellow',
-          border: '2px solid black',
-        }}
-      />
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+      </svg>
     );
   };
 
@@ -404,16 +410,55 @@ function UploadReport() {
             {errors.redirectLink && <p className="error-text">{errors.redirectLink}</p>}
           </div>
           <div className="form-group">
+            <label>Access <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+</svg><span className="required">*</span></label>
+            <select value={access} onChange={handleAccessChange}>
+              <option value="">Select Access</option>
+              <option value="private">Private (only visible on your profile)</option>
+              <option value="public">Public (everyone can see)</option>
+            </select>
+            {errors.access && <p className="error-text">{errors.access}</p>}
+          </div>
+          <div className="form-group">
             <label>Coordinate <span className="required">*</span></label>
             <div className="coordinate-container">
               <div className="coordinate-item">
                 <span className="coordinate-label">Lat</span>
-                <input type="text" placeholder="Latitude" value={location.lat} onChange={handleLatitudeChange} />
+                <input
+                  type="text"
+                  placeholder="Latitude"
+                  value={latitude}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only valid latitude input (numbers, optional negative sign, and one decimal point)
+                    if (/^-?\d*\.?\d*$/.test(value)) {
+                      setLatitude(value);
+                      if (value) {
+                        setLocation({ ...location, lat: parseFloat(value) });
+                      }
+                    }
+                  }}
+                />
                 {errors.latitude && <p className="error-text">{errors.latitude}</p>}
               </div>
               <div className="coordinate-item">
                 <span className="coordinate-label">Long</span>
-                <input type="text" placeholder="Longitude" value={location.lng} onChange={handleLongitudeChange} />
+                <input
+                  type="text"
+                  placeholder="Longitude"
+                  value={longitude}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only valid longitude input (numbers, optional negative sign, and one decimal point)
+                    if (/^-?\d*\.?\d*$/.test(value)) {
+                      setLongitude(value);
+                      if (value) {
+                        setLocation({ ...location, lng: parseFloat(value) });
+                      }
+                    }
+                  }}
+                />
                 {errors.longitude && <p className="error-text">{errors.longitude}</p>}
               </div>
             </div>

@@ -29,6 +29,7 @@ function NavBar({ user, onLogout }) {
                     <h2>Upload</h2>
                     <button onClick={() => navigatePage('/upload')} className="modal-button">Upload Model</button>
                     <button onClick={() => navigatePage('/upload-reports')} className="modal-button">Upload Reports</button>
+                    <button onClick={() => navigatePage('/upload-multimedia')} className="modal-button">Upload Multimedia</button>
                     <button onClick={onClose} className="modal-close-button-upload">Close</button>
                 </div>
             </div>

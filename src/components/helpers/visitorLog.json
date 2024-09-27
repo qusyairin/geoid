@@ -1,0 +1,179 @@
+{
+    "dailyStats": [
+      {
+        "date": "2024-09-14",
+        "visitorCount": 11,
+        "categories": {
+          "Archaeology": 6,
+          "Geology": 5
+        },
+        "searchWords": {
+          "Ruins": 1,
+          "Fossils": 1,
+          "Pottery": 1,
+          "Dolomite": 1,
+          "Stone tools": 1,
+          "Basalt": 1,
+          "Flint": 2,
+          "Plate tectonics": 1,
+          "Cave paintings": 1,
+          "Fault lines": 1,
+          "Ancient artifacts": 1
+        }
+      },
+      {
+        "date": "2024-09-13",
+        "visitorCount": 9,
+        "categories": {
+          "Geology": 5,
+          "Archaeology": 4
+        },
+        "searchWords": {
+          "Sedimentary rocks": 1,
+          "Flint": 1,
+          "Granite": 1,
+          "Copper artifacts": 1,
+          "Limestone": 1,
+          "Arrowhead": 1,
+          "Metamorphic rocks": 1,
+          "Burial sites": 1,
+          "Quartzite": 1
+        }
+      },
+      {
+        "date": "2024-09-12",
+        "visitorCount": 10,
+        "categories": {
+          "Geology": 5,
+          "Archaeology": 5
+        },
+        "searchWords": {
+          "Basalt": 1,
+          "Stone tools": 1,
+          "Fault zones": 1,
+          "Pottery": 1,
+          "Igneous rocks": 1,
+          "Burial sites": 1,
+          "Rock formations": 1,
+          "Cave paintings": 1,
+          "Marble": 1,
+          "Ancient artifacts": 1
+        }
+      },
+      {
+        "date": "2024-09-11",
+        "visitorCount": 8,
+        "categories": {
+          "Archaeology": 4,
+          "Geology": 4
+        },
+        "searchWords": {
+          "Flint": 1,
+          "Plate tectonics": 1,
+          "Arrowhead": 1,
+          "Shale": 1,
+          "Copper artifacts": 1,
+          "Volcanic rocks": 1,
+          "Ancient tools": 1,
+          "Fossils": 1
+        }
+      },
+      {
+        "date": "2024-09-10",
+        "visitorCount": 10,
+        "categories": {
+          "Geology": 6,
+          "Archaeology": 4
+        },
+        "searchWords": {
+          "Quartzite": 1,
+          "Burial sites": 1,
+          "Metamorphic rocks": 1,
+          "Ruins": 1,
+          "Fossils": 1,
+          "Excavation techniques": 1,
+          "Limestone": 1,
+          "Pottery": 1,
+          "Sandstone": 1,
+          "Cave paintings": 1
+        }
+      },
+      {
+        "date": "2024-09-09",
+        "visitorCount": 11,
+        "categories": {
+          "Geology": 6,
+          "Archaeology": 5
+        },
+        "searchWords": {
+          "Flint": 1,
+          "Fossils": 1,
+          "Dolomite": 1,
+          "Stone tools": 1,
+          "Basalt": 1,
+          "Arrowhead": 1,
+          "Sedimentary rocks": 1,
+          "Copper artifacts": 1,
+          "Fault lines": 1,
+          "Ancient tools": 1,
+          "Igneous rocks": 1
+        }
+      },
+      {
+        "date": "2024-09-08",
+        "visitorCount": 9,
+        "categories": {
+          "Geology": 5,
+          "Archaeology": 4
+        },
+        "searchWords": {
+          "Plate tectonics": 1,
+          "Pottery": 1,
+          "Metamorphic rocks": 1,
+          "Ancient artifacts": 1,
+          "Fault lines": 1,
+          "Flint": 1,
+          "Quartzite": 1,
+          "Cave paintings": 1,
+          "Limestone": 1
+        }
+      }
+    ],
+    "weeklyStats": {
+      "visitorCount": 68,
+      "categories": {
+        "Geology": 36,
+        "Archaeology": 32
+      },
+      "searchWords": {
+        "Flint": 6,
+        "Fossils": 4,
+        "Limestone": 4,
+        "Pottery": 4,
+        "Cave paintings": 4,
+        "Basalt": 3,
+        "Fault lines": 3,
+        "Plate tectonics": 3,
+        "Quartzite": 3,
+        "Metamorphic rocks": 3,
+        "Burial sites": 3,
+        "Stone tools": 3,
+        "Copper artifacts": 3,
+        "Ancient artifacts": 3,
+        "Arrowhead": 3,
+        "Igneous rocks": 2,
+        "Sedimentary rocks": 2,
+        "Dolomite": 2,
+        "Ancient tools": 2,
+        "Ruins": 1,
+        "Granite": 1,
+        "Rock formations": 1,
+        "Marble": 1,
+        "Shale": 1,
+        "Volcanic rocks": 1,
+        "Excavation techniques": 1,
+        "Sandstone": 1,
+        "Fault zones": 1
+      }
+    }
+  }

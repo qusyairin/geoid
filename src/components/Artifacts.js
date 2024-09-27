@@ -16,8 +16,9 @@ function Artifacts() {
                 setLoading(true); // Start loading
                 const response = await fetch('https://geoid-rest.vercel.app/models');
                 const data = await response.json();
-                setArtifacts(data);
-                setFilteredArtifacts(data);
+                const publicModel = data.filter(model => model.access === 'public');
+                setArtifacts(publicModel);
+                setFilteredArtifacts(publicModel);
             } catch (error) {
                 console.error('Error fetching artifacts:', error);
             } finally {

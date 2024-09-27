@@ -24,6 +24,16 @@ function Home() {
     const [modelData, setModelData] = useState([])
     const [reportData, setReportData] = useState([])
     const [loading, setLoading] = useState(false);
+    const [filters, setFilters] = useState({
+        country: "",
+        state: "",
+        category: "",
+        majorLithology: "",
+        discipline: "",
+        rockType: "",
+        formation: "",
+        age: ""
+    });
 
     const markerData = [
         {
@@ -49,19 +59,18 @@ function Home() {
         setMapReady(true);
     };
 
-    const handleApplyFilter = (category) => {
-        if (category === '') {
-            setFilteredMarker(markerData);
-        } else {
-            setFilteredMarker(markerData.filter(marker => marker.type.toLowerCase() === category.toLowerCase()));
-        }
-        setSelectedCategory(category);
-        setShowResults(true);
-    };
-
     const handleReset = () => {
+        setFilters({
+            country: "",
+            state: "",
+            category: "",
+            majorLithology: "",
+            discipline: "",
+            rockType: "",
+            formation: "",
+            age: ""
+        });
         setFilteredMarker(markerData);
-        setSelectedCategory('');
         setKeyword('');
         navigate('/home');
     };
@@ -117,11 +126,13 @@ function Home() {
 
                 const filteredReportData = reportRes.filter(report => 
                     report && 
-                    report.latitude && 
-                    report.longitude &&
-                    !isNaN(parseFloat(report.latitude)) &&
-                    !isNaN(parseFloat(report.longitude))
+                    report.lat && 
+                    report.long &&
+                    !isNaN(parseFloat(report.lat)) &&
+                    !isNaN(parseFloat(report.long))
                 );
+
+                console.log(filteredReportData)
                 
                 setModelData(filteredModelData)
                 setReportData(filteredReportData)
@@ -136,38 +147,165 @@ function Home() {
         fetchData()
     }, []);
 
-    const ModelMarker = () => {
+    const handleApplyFilter = (newFilters) => {
+        setFilters(newFilters);
+        setShowResults(true);
+
+        // Filter markers based on the new filters
+        const filtered = markerData.filter(marker => {
+            if (newFilters.country && marker.country !== newFilters.country) return false;
+            if (newFilters.state && marker.state !== newFilters.state) return false;
+            if (newFilters.category && marker.type !== newFilters.category) return false;
+            // Add more filter conditions as needed
+            return true;
+        });
+
+        setFilteredMarker(filtered);
+    };
+
+    const ModelMarker = ({category, title, model, data}) => {
+        const [isHovering, setIsHovering] = useState(false);
+        let categoryLabel = 'Unknown Category'
+
+        const handleClick = () => {
+            navigate('/model/view-model', { state: { model, data } });
+        };
+
+        const backgroundColor = category
+            ? category.toLowerCase() === 'archaeology'
+            ? "orange"
+            : "yellow"
+            : "gray";
+
+        if (category.toLowerCase() ===  'archaeology'){
+            categoryLabel = 'Archaelogy'
+        } else if (category ===  'gAll'){
+            categoryLabel = 'Geology - All'
+        } else if (category ===  'gGeneral'){
+            categoryLabel = 'Geology - General'
+        } else if (category ===  'gONG'){
+            categoryLabel = 'Geology - Oil & Gas'
+        } else if (category ===  'gMining'){
+            categoryLabel = 'Geology - Mining'
+        } else if (category ===  'gEngineering'){
+            categoryLabel = 'Geology - Engineering/Geotechnical'
+        } else if (category ===  'gEnvironment'){
+            categoryLabel = 'Geology - Environment'
+        }
+
         return (
-          <div
+            <div
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            onClick={handleClick}
             style={{
-              position: 'absolute',
-              transform: 'translate(-50%, -50%)',
-              left: '50%',
-              top: '50%',
-              width: '20px',
-              height: '20px',
-              borderRadius: '50%',
-              backgroundColor: 'yellow',
-              border: '2px solid black',
+              position: 'relative',
             }}
-          />
+          >
+            <div
+              style={{
+                width: '10px',
+                height: '10px',
+                backgroundColor: backgroundColor,
+                border: '2px solid black',
+                borderRadius: "50%",
+                cursor: 'pointer',
+              }}
+            />
+            {isHovering && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-40px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: 'white',
+                  padding: '5px',
+                  boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                  zIndex: 1000,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <div><strong>{title}</strong></div>
+                <div><strong>3D Model</strong></div>
+                <div>{categoryLabel}</div>
+              </div>
+            )}
+          </div>
         );
     };
     
-    const ReportMarker = () => {
+    const ReportMarker = ({ category, title, file }) => {
+        const [isHovering, setIsHovering] = useState(false);
+        let categoryLabel = 'Unknown Category'
+
+        const handleClick = () => {
+            if (file) {
+                window.open(file, '_blank');
+                console.log('Clicked file:', file);
+            }
+        };
+
+        const backgroundColor = category
+            ? category.toLowerCase() === 'archaeology'
+            ? "orange"
+            : "yellow"
+            : "gray";
+
+        if (category.toLowerCase() ===  'archaeology'){
+            categoryLabel = 'Archaelogy'
+        } else if (category ===  'gAll'){
+            categoryLabel = 'Geology - All'
+        } else if (category ===  'gGeneral'){
+            categoryLabel = 'Geology - General'
+        } else if (category ===  'gONG'){
+            categoryLabel = 'Geology - Oil & Gas'
+        } else if (category ===  'gMining'){
+            categoryLabel = 'Geology - Mining'
+        } else if (category ===  'gEngineering'){
+            categoryLabel = 'Geology - Engineering/Geotechnical'
+        } else if (category ===  'gEnvironment'){
+            categoryLabel = 'Geology - Environment'
+        }
+
         return (
-          <div
-            style={{
-              position: 'absolute',
-              transform: 'translate(-50%, -50%)',
-              left: '50%',
-              top: '50%',
-              width: '20px',
-              height: '20px',
-              backgroundColor: 'orange',
-              border: '2px solid black',
-            }}
-          />
+            <div
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                onClick={handleClick}
+                style={{
+                    position: 'relative',
+                    cursor: 'pointer',
+                }}
+            >
+                <div
+                    style={{
+                        width: '10px',
+                        height: '10px',
+                        backgroundColor: backgroundColor,
+                        border: '2px solid black',
+                    }}
+                />
+                {isHovering && (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '-40px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            backgroundColor: 'white',
+                            padding: '5px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                            zIndex: 1000,
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        <div><strong>{title}</strong></div>
+                        <div><strong>Report / Journal</strong></div>
+                        <div>{categoryLabel}</div>
+                    </div>
+                )}
+            </div>
         );
     };
 
@@ -229,15 +367,23 @@ function Home() {
             >
                 {modelData.map((marker) => (
                     <ModelMarker
+                        category={marker.data.type}
+                        title={marker.name}
+                        model={marker.model}
+                        data={marker.data}
                         lat={parseFloat(marker.data.latitude)}
                         lng={parseFloat(marker.data.longitude)}
                     />
                 ))}
 
-                {reportData.map((marker) => (
+                {reportData.map((marker, index) => (
                     <ReportMarker
-                        lat={parseFloat(marker.latitude)}
-                        lng={parseFloat(marker.longitude)}
+                        key={index}
+                        category={marker.category}
+                        title={marker.title}
+                        lat={parseFloat(marker.lat)}
+                        lng={parseFloat(marker.long)}
+                        file={marker.file}
                     />
                 ))}
             </GoogleMap>
@@ -261,14 +407,14 @@ function Home() {
                         padding: "20px",
                         zIndex: 1000,
                         overflowY: "auto",
-                        backgroundColor: '#F5F7FA' // Allow scrolling if content overflows
+                        backgroundColor: '#F5F7FA'
                     }}
                 >
                     <div>
                         <ResultButton onClose={handleCloseResults} onButtonClick={handleButtonClick} />
-                        {currentView === 'model' && <ResultModel category={selectedCategory} keyword={keyword} />}
-                        {currentView === 'reports' && <ResultReport category={selectedCategory} keyword={keyword}/>}
-                        {currentView === 'multimedia' && <ResultMultimedia category={selectedCategory} keyword={keyword}/>}
+                        {currentView === 'model' && <ResultModel filters={filters} keyword={keyword} />}
+                        {currentView === 'reports' && <ResultReport filters={filters} keyword={keyword}/>}
+                        {currentView === 'multimedia' && <ResultMultimedia filters={filters} keyword={keyword}/>}
                     </div>
                 </div>
             )}

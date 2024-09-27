@@ -2,20 +2,52 @@ import "../style.css";
 import { useEffect, useState } from "react";
 
 function FilterMenu({ onApplyFilter, reset }) {
-    const [selectedState, setSelectedState] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("");
-    const [country, setCountry] = useState("");
-    const [result, setResult] = useState(null);
+    const [filters, setFilters] = useState({
+        country: "",
+        state: "",
+        category: "",
+        majorLithology: "",
+        discipline: "",
+        rockType: "",
+        formation: "",
+        age: ""
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [name]: value
+        }));
+
+        // Reset geology-related filters when category changes
+        if (name === 'category' && value !== 'geology') {
+            setFilters(prevFilters => ({
+                ...prevFilters,
+                majorLithology: "",
+                discipline: "",
+                rockType: "",
+                formation: "",
+                age: ""
+            }));
+        }
+    };
 
     const handleApply = () => {
-        onApplyFilter(selectedState, selectedCategory);
+        onApplyFilter(filters);
     };
 
     const handleReset = () => {
-        setSelectedState("");
-        setSelectedCategory("");
-        setCountry("");
-        setResult(null);
+        setFilters({
+            country: "",
+            state: "",
+            category: "",
+            majorLithology: "",
+            discipline: "",
+            rockType: "",
+            formation: "",
+            age: ""
+        });
         reset();
     };
 
@@ -38,13 +70,12 @@ function FilterMenu({ onApplyFilter, reset }) {
                     <div>
                         <label>
                             <select
+                                name="country"
                                 className="dropdown"
-                                value={country}
-                                onChange={(e) => setCountry(e.target.value)}
+                                value={filters.country}
+                                onChange={handleChange}
                             >
-                                <option value="" selected>
-                                    Country
-                                </option>
+                                <option value="">Country</option>
                                 <option value="Malaysia">Malaysia</option>
                             </select>
                         </label>
@@ -59,13 +90,12 @@ function FilterMenu({ onApplyFilter, reset }) {
                     <div>
                         <label>
                             <select
+                                name="state"
                                 className="dropdown"
-                                value={selectedState}
-                                onChange={(e) => setSelectedState(e.target.value)}
+                                value={filters.state}
+                                onChange={handleChange}
                             >
-                                <option value="" selected>
-                                    State
-                                </option>
+                                <option value="">State</option>
                                 <option value="terengganu">Terengganu</option>
                                 <option value="kedah">Kedah</option>
                                 <option value="johor">Johor</option>
@@ -95,48 +125,50 @@ function FilterMenu({ onApplyFilter, reset }) {
                     <div>
                         <label>
                             <select
+                                name="category"
                                 className="dropdown"
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                value={filters.category}
+                                onChange={handleChange}
                             >
-                                <option value="" selected>
-                                    Category
-                                </option>
+                                <option value="">Category</option>
                                 <option value="geology">Geology</option>
                                 <option value="archaeology">Archaeology</option>
                             </select>
                         </label>
                     </div>
 
-                    {selectedCategory === "geology" && country !== "" && (
-                        <>
-                            <div style={{ marginTop: "20px" }}>
-                                <div>
-                                    <label>
-                                        <select className="dropdown">
-                                            <option value="" selected>
-                                                Major Lithology
-                                            </option>
-                                            <option value="chert">Chert</option>
-                                            <option value="phyllite">Phyllite & quartzite metasediment</option>
-                                        </select>
-                                    </label>
-                                </div>
+                    {filters.category === "geology" && (
+                        <div style={{ marginTop: "20px" }}>
+                            <div>
+                                <label>
+                                    <select 
+                                        name="majorLithology" 
+                                        className="dropdown" 
+                                        value={filters.majorLithology} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Major Lithology</option>
+                                        <option value="chert">Chert</option>
+                                        <option value="phyllite">Phyllite & quartzite metasediment</option>
+                                    </select>
+                                </label>
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
 
-                {/* Geology-related filters */}
-                {selectedCategory === "geology" && country !== "" && (
+                {filters.category === "geology" && (
                     <>
                         <div style={{ marginRight: "2rem" }}>
                             <div>
                                 <label>
-                                    <select className="dropdown">
-                                        <option value="" selected>
-                                            Disciplines
-                                        </option>
+                                    <select 
+                                        name="discipline" 
+                                        className="dropdown" 
+                                        value={filters.discipline} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Disciplines</option>
                                         <option value="gAll">Geology - all</option>
                                         <option value="gGeneral">Geology - general</option>
                                         <option value="gONG">Geology - oil & gas</option>
@@ -149,10 +181,13 @@ function FilterMenu({ onApplyFilter, reset }) {
 
                             <div style={{ marginTop: "20px" }}>
                                 <label>
-                                    <select className="dropdown">
-                                        <option value="" selected>
-                                            Type of Rock
-                                        </option>
+                                    <select 
+                                        name="rockType" 
+                                        className="dropdown" 
+                                        value={filters.rockType} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Type of Rock</option>
                                         <option value="sedimentary">Sedimentary Rock</option>
                                         <option value="igneous">Igneous Rock</option>
                                         <option value="metamorphic">Metamorphic Rock</option>
@@ -166,10 +201,13 @@ function FilterMenu({ onApplyFilter, reset }) {
                         <div style={{ marginRight: "2rem" }}>
                             <div>
                                 <label>
-                                    <select className="dropdown">
-                                        <option value="" selected>
-                                            Formation
-                                        </option>
+                                    <select 
+                                        name="formation" 
+                                        className="dropdown" 
+                                        value={filters.formation} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Formation</option>
                                         <option value="semanggol">Semanggol Formation</option>
                                         <option value="labang">Labang Formation</option>
                                         <option value="kuantan">Kuantan Group</option>
@@ -179,10 +217,13 @@ function FilterMenu({ onApplyFilter, reset }) {
 
                             <div style={{ marginTop: "20px" }}>
                                 <label>
-                                    <select className="dropdown">
-                                        <option value="" selected>
-                                            Age
-                                        </option>
+                                    <select 
+                                        name="age" 
+                                        className="dropdown" 
+                                        value={filters.age} 
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">Age</option>
                                         <option value="triassic">Triassic</option>
                                         <option value="permian">Early Permian - Middle Triassic</option>
                                         <option value="oligocene">Oligocene - Lower Miocene</option>

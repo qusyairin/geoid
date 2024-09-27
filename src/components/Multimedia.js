@@ -14,13 +14,13 @@ function Multimedia() {
     const [searchKeyword, setSearchKeyword] = useState(""); // Search keyword state
 
     useEffect(() => {
-        // Fetch data from the endpoint
         const fetchData = async () => {
             try {
                 setLoading(true); // Start loading
                 const response = await axios.get('https://geoid-rest.vercel.app/media');
-                setMediaItems(response.data);
-                setFilteredMediaItems(response.data); // Initialize filtered items
+                const publicMedia = response.data.filter(media => media.access === 'public');
+                setMediaItems(publicMedia);
+                setFilteredMediaItems(publicMedia); // Initialize filtered items
             } catch (error) {
                 console.error('Error fetching multimedia data:', error);
             } finally {

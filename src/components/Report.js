@@ -17,12 +17,13 @@ function Report() {
             try {
                 setLoading(true); // Start loading
                 const response = await axios.get('https://geoid-rest.vercel.app/paper_report');
-                setReports(response.data);
-                setFilteredReports(response.data); // Initialize filtered reports
+                const publicReports = response.data.filter(report => report.access === 'public');
+                setReports(publicReports);
+                setFilteredReports(publicReports);
             } catch (error) {
                 console.error("There was an error fetching the reports!", error);
             } finally {
-                setLoading(false); // Stop loading after data is fetched
+                setLoading(false);
             }
         };
 
@@ -30,7 +31,6 @@ function Report() {
     }, []);
 
     useEffect(() => {
-        // Filter reports whenever searchQuery changes
         const lowercasedQuery = searchQuery.toLowerCase();
         const filtered = reports.filter(report =>
             report.title.toLowerCase().includes(lowercasedQuery) ||
@@ -52,7 +52,7 @@ function Report() {
     };
 
     const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value); // Update search query
+        setSearchQuery(e.target.value);
     };
 
     const toggleDescription = (index) => {

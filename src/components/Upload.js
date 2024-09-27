@@ -41,6 +41,7 @@ function Upload() {
   const [location, setLocation] = useState(DefaultLocation);
   const [modelLink, setModelLink] = useState("");
   const [imgLink, setImgLink] = useState("");
+  const [access, setAccess] = useState("");
 
   useEffect(() => {
     if (malaysiaData && malaysiaData.states) {
@@ -109,12 +110,28 @@ function Upload() {
     setKeywords(event.target.value);
   };
 
-  const handleLatitudeChange = (event) => {
-    setLatitude(event.target.value);
+  const handleAccessChange = (event) => {
+    setAccess(event.target.value);
   };
 
+  const handleLatitudeChange = (event) => {
+    const newLat = parseFloat(event.target.value);
+    if (!isNaN(newLat)) {
+      setLatitude(newLat);
+      setLocation((prevLocation) => ({ ...prevLocation, lat: newLat }));
+    } else {
+      setLatitude(event.target.value); // Keep the input string in case of invalid value
+    }
+  };
+  
   const handleLongitudeChange = (event) => {
-    setLongitude(event.target.value);
+    const newLng = parseFloat(event.target.value);
+    if (!isNaN(newLng)) {
+      setLongitude(newLng);
+      setLocation((prevLocation) => ({ ...prevLocation, lng: newLng }));
+    } else {
+      setLongitude(event.target.value); // Keep the input string in case of invalid value
+    }
   };
 
   const handleTypeChange = (event) => {
@@ -171,6 +188,7 @@ function Upload() {
     const imgRef = ref(bucketDb, `${uploadedImgName}`);
     const savedUser = JSON.parse(localStorage.getItem('user'));
     const userId = savedUser ? savedUser.user._id : null;
+    const displayName = savedUser ? savedUser.display_name : null;
 
     if (uploadedFileName) {
       // Upload the model first and get its URL
@@ -193,7 +211,7 @@ function Upload() {
                 model: modelUrl,   // Use the resolved model URL
                 data: {
                   title: title,
-                  author: "Digital Geoscience Global",
+                  author: displayName,
                   country: country,
                   state: selectedState,
                   district: selectedDistrict,
@@ -213,7 +231,7 @@ function Upload() {
                   longitude: longitude.toString(),
                   keyword: keywords
                 },
-                access: '',
+                access: access,
                 userId: userId
               };
 
@@ -423,17 +441,57 @@ function Upload() {
               {errors.keywords && <p className="error-text">{errors.keywords}</p>}
             </div>
 
+            <div className="form-group">
+              <label>Access <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+                </svg><span className="required">*</span></label>
+              <select value={access} onChange={handleAccessChange}>
+                <option value="">Select Access</option>
+                <option value="private">Private (only visible on your profile)</option>
+                <option value="public">Public (everyone can see)</option>
+              </select>
+              {errors.access && <p className="error-text">{errors.access}</p>}
+          </div>
+
           <div className="form-group">
             <label>Coordinate <span className="required">*</span></label>
             <div className="coordinate-container">
               <div className="coordinate-item">
                 <span className="coordinate-label">Lat</span>
-                <input type="text" placeholder="Latitude" value={location.lat} onChange={handleLatitudeChange} />
+                <input
+                  type="text"
+                  placeholder="Latitude"
+                  value={latitude}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only valid latitude input (numbers, optional negative sign, and one decimal point)
+                    if (/^-?\d*\.?\d*$/.test(value)) {
+                      setLatitude(value);
+                      if (value) {
+                        setLocation({ ...location, lat: parseFloat(value) });
+                      }
+                    }
+                  }}
+                />
                 {errors.latitude && <p className="error-text">{errors.latitude}</p>}
               </div>
               <div className="coordinate-item">
                 <span className="coordinate-label">Long</span>
-                <input type="text" placeholder="Longitude" value={location.lng} onChange={handleLongitudeChange}/>
+                <input
+                  type="text"
+                  placeholder="Longitude"
+                  value={longitude}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Allow only valid longitude input (numbers, optional negative sign, and one decimal point)
+                    if (/^-?\d*\.?\d*$/.test(value)) {
+                      setLongitude(value);
+                      if (value) {
+                        setLocation({ ...location, lng: parseFloat(value) });
+                      }
+                    }
+                  }}
+                />
                 {errors.longitude && <p className="error-text">{errors.longitude}</p>}
               </div>
             </div>

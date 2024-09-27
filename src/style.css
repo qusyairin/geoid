@@ -409,6 +409,12 @@
     align-items: flex-start;
 }
 
+.profile-type {
+    color: grey;
+    font-weight: 400;
+    font-style: italic;
+}
+
 .models-button {
     background-color: transparent;
     color: #2a699d;
@@ -569,8 +575,86 @@
 
 .artifacts-result-page {
     /* max-width: 1200px; */
-    padding: 20px;
     margin: 0 auto;
+}
+
+.artifact-result-page {
+    margin: 0 auto;
+}
+
+.artifact-result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.artifact-result-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.artifact-result-card:hover {
+    transform: translateY(-3px);
+}
+
+.artifact-result-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.artifact-result-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.artifact-result-info h3 {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.artifact-result-info p {
+    font-size: 12px;
+    color: #666;
+    margin: 8px 0;
+}
+
+.artifact-result-view-button {
+    padding: 8px 12px;
+    background-color: #ef5223;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.artifact-result-view-button:hover {
+    background-color: #a1391a;
+}
+
+.artifact-result-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.artifact-result-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.artifact-result-grid::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.artifact-result-grid::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .search-container {
@@ -695,6 +779,116 @@
 .multimedia-card:hover .overlay {
     opacity: 1;
     transform: scale(1); /* Ensure the overlay scale is normal when visible */
+}
+
+.multimedia-result-page {
+    margin: 0 auto;
+}
+
+.multimedia-result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.multimedia-result-card {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.multimedia-result-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.multimedia-result-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.multimedia-result-card:hover .multimedia-result-image {
+    transform: scale(1.05);
+}
+
+.multimedia-result-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+.multimedia-result-card:hover .multimedia-result-overlay {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.multimedia-result-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.multimedia-result-info h3 {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+.multimedia-result-info p {
+    font-size: 12px;
+    color: #666;
+    margin: 8px 0;
+}
+
+.multimedia-result-view-button {
+    padding: 8px 12px;
+    background-color: #ef5223;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+}
+
+.multimedia-result-view-button:hover {
+    background-color: #a1391a;
+}
+
+.multimedia-result-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.multimedia-result-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.multimedia-result-grid::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.multimedia-result-grid::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 
@@ -1345,6 +1539,11 @@ margin-top: 0.5rem;
     gap: 20px;
     margin-bottom: 30px;
   }
+
+  .line-chart-container {
+    width: 100%;
+    /* Remove the height property from here */
+  }
   
   .stat-box1, .stat-box2, .stat-box3 {
     flex: 1;
@@ -1390,6 +1589,29 @@ margin-top: 0.5rem;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 97%;
+    /* You can add a min-height here if you want to ensure a minimum size */
+    min-height: 400px;
+  }
+  
+  .charts-container {
+    margin-top: 30px;
+  }
+  
+  .pie-charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .pie-chart-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 10px);
+    height: 300px;
   }
   
   .admin-link {

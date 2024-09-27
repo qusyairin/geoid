@@ -1,64 +1,68 @@
 {
-    "states": [
-      {
-        "name": "Johor",
-        "districts": ["Johor Bahru", "Muar", "Kulai", "Segamat", "Kluang", "Batu Pahat", "Pontian", "Kota Tinggi", "Ledang", "Mersing"]
-      },
-      {
-        "name": "Kedah",
-        "districts": ["Alor Setar", "Kota Setar", "Langkawi", "Sungai Petani", "Kuala Kedah", "Jitra", "Kubang Pasu", "Padang Terap", "Baling", "Pokok Sena"]
-      },
-      {
-        "name": "Kelantan",
-        "districts": ["Kota Bharu", "Gua Musang", "Machang", "Pasir Mas", "Tanah Merah", "Kuala Krai", "Jeli", "Bachok", "Tumpat", "Pasir Puteh"]
-      },
-      {
-        "name": "Malacca",
-        "districts": ["Melaka Tengah", "Alor Gajah", "Jasin"]
-      },
-      {
-        "name": "Negeri Sembilan",
-        "districts": ["Seremban", "Port Dickson", "Kuala Pilah", "Jempol", "Rembau", "Tampin", "Jelebu", "Gemenceh", "Linggi", "Gemencheh"]
-      },
-      {
-        "name": "Pahang",
-        "districts": ["Kuantan", "Temerloh", "Maran", "Bentong", "Raub", "Jerantut", "Bera", "Pekan", "Lipis", "Cameron Highlands"]
-      },
-      {
-        "name": "Penang",
-        "districts": ["George Town", "Bayan Lepas", "Butterworth", "Balik Pulau", "Perai", "Seberang Jaya", "Jelutong", "Bukit Mertajam", "Sungai Dua", "Gertak Sanggul"]
-      },
-      {
-        "name": "Perak",
-        "districts": ["Ipoh", "Taiping", "Kampar", "Batu Gajah", "Parit Buntar", "Sitiawan", "Lumut", "Teluk Intan", "Gopeng", "Lenggong"]
-      },
-      {
-        "name": "Perlis",
-        "districts": ["Kangar", "Arau", "Padang Besar", "Beseri", "Simpang Empat", "Chuping", "Bintong", "Kuala Perlis", "Kuala Sanglang", "Sungai Korok"]
-      },
-      {
-        "name": "Sabah",
-        "districts": ["Kota Kinabalu", "Sandakan", "Tawau", "Keningau", "Beaufort", "Lahad Datu", "Sipitang", "Pitas", "Tenom", "Ranau"]
-      },
-      {
-        "name": "Sarawak",
-        "districts": ["Kuching", "Sibu", "Miri", "Bintulu", "Sarikei", "Kapit", "Mukah", "Sri Aman", "Lubok Antu", "Betong"]
-      },
-      {
-        "name": "Selangor",
-        "districts": ["Shah Alam", "Petaling Jaya", "Subang Jaya", "Klang", "Gombak", "Kuala Selangor", "Hulu Selangor", "Sepang", "Sabak Bernam", "Kuala Langat"]
-      },
-      {
-        "name": "Wilayah Persekutuan Kuala Lumpur",
-        "districts": ["Kuala Lumpur"]
-      },
-      {
-        "name": "Wilayah Persekutuan Labuan",
-        "districts": ["Labuan"]
-      },
-      {
-        "name": "Wilayah Persekutuan Putrajaya",
-        "districts": ["Putrajaya"]
-      }
-    ]
-}  
+  "states": [
+    {
+      "name": "Johor",
+      "districts": ["Johor Bahru", "Muar", "Kulai", "Segamat", "Kluang", "Batu Pahat", "Pontian", "Kota Tinggi", "Ledang", "Mersing"]
+    },
+    {
+      "name": "Kedah",
+      "districts": ["Alor Setar", "Kota Setar", "Langkawi", "Sungai Petani", "Kuala Kedah", "Jitra", "Kubang Pasu", "Padang Terap", "Baling", "Pokok Sena"]
+    },
+    {
+      "name": "Kelantan",
+      "districts": ["Kota Bharu", "Gua Musang", "Machang", "Pasir Mas", "Tanah Merah", "Kuala Krai", "Jeli", "Bachok", "Tumpat", "Pasir Puteh"]
+    },
+    {
+      "name": "Malacca",
+      "districts": ["Melaka Tengah", "Alor Gajah", "Jasin"]
+    },
+    {
+      "name": "Negeri Sembilan",
+      "districts": ["Seremban", "Port Dickson", "Kuala Pilah", "Jempol", "Rembau", "Tampin", "Jelebu", "Gemenceh", "Linggi", "Gemencheh"]
+    },
+    {
+      "name": "Pahang",
+      "districts": ["Kuantan", "Temerloh", "Maran", "Bentong", "Raub", "Jerantut", "Bera", "Pekan", "Lipis", "Cameron Highlands"]
+    },
+    {
+      "name": "Penang",
+      "districts": ["George Town", "Bayan Lepas", "Butterworth", "Balik Pulau", "Perai", "Seberang Jaya", "Jelutong", "Bukit Mertajam", "Sungai Dua", "Gertak Sanggul"]
+    },
+    {
+      "name": "Perak",
+      "districts": ["Ipoh", "Taiping", "Kampar", "Batu Gajah", "Parit Buntar", "Sitiawan", "Lumut", "Teluk Intan", "Gopeng", "Lenggong"]
+    },
+    {
+      "name": "Perlis",
+      "districts": ["Kangar", "Arau", "Padang Besar", "Beseri", "Simpang Empat", "Chuping", "Bintong", "Kuala Perlis", "Kuala Sanglang", "Sungai Korok"]
+    },
+    {
+      "name": "Sabah",
+      "districts": ["Kota Kinabalu", "Sandakan", "Tawau", "Keningau", "Beaufort", "Lahad Datu", "Sipitang", "Pitas", "Tenom", "Ranau"]
+    },
+    {
+      "name": "Sarawak",
+      "districts": ["Kuching", "Sibu", "Miri", "Bintulu", "Sarikei", "Kapit", "Mukah", "Sri Aman", "Lubok Antu", "Betong"]
+    },
+    {
+      "name": "Selangor",
+      "districts": ["Shah Alam", "Petaling Jaya", "Subang Jaya", "Klang", "Gombak", "Kuala Selangor", "Hulu Selangor", "Sepang", "Sabak Bernam", "Kuala Langat"]
+    },
+    {
+      "name": "Wilayah Persekutuan Kuala Lumpur",
+      "districts": ["Kuala Lumpur"]
+    },
+    {
+      "name": "Wilayah Persekutuan Labuan",
+      "districts": ["Labuan"]
+    },
+    {
+      "name": "Wilayah Persekutuan Putrajaya",
+      "districts": ["Putrajaya"]
+    },
+    {
+      "name": "Terengganu",
+      "districts": ["Kuala Terengganu", "Kemaman", "Dungun", "Marang", "Besut", "Setiu", "Hulu Terengganu"]
+    }
+  ]
+}

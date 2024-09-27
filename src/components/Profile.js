@@ -301,13 +301,14 @@ function Profile() {
                     )}
                 </div>
                     <div className="profile-details">
-                        <h2>{profileData.username}</h2>
-                        <p>{profileData.displayName}</p>
+                        <h2 style={{marginTop: "0px", marginBottom: "0px"}}>{profileData.username}</h2>
+                        <p className="profile-type" style={{marginTop: "0px" , marginBottom: "0px"}}>{profileData.type === "owner" ? "Data Owner" : "Data User"}</p>
+                        <p style={{marginTop: "0px" }}>{profileData.displayName}</p>
                     </div>
                 </div>
-                {profileData.type === 'owner' &&(
+                {/* {profileData.type === 'owner' &&( */}
                     <button className="models-button" onClick={handleShowUploads}>My Uploads {'>'}</button>
-                )}
+                {/* )} */}
             </div>
 
             <form className="profile-form" onSubmit={handleSubmit}>

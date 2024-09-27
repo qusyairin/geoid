@@ -17,6 +17,7 @@ import ViewModelMain from './components/ViewModelMain';
 import PrivateRoute from './components/helpers/PrivateRoute';
 import AdminDashboard from './components/AdminDashboard';
 import { useState } from 'react';
+import UploadMultimedia from './components/UploadMultimedia';
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/service-training" element={<Service />} />
         <Route path="/reports" element={<Report />} />
         <Route path="/upload-reports" element={<PrivateRoute element={UploadReport} user={user} isAdmin={user ? user.type : ''} adminOnly={false}/>} />
+        <Route path="/upload-multimedia" element={<PrivateRoute element={UploadMultimedia} user={user} isAdmin={user ? user.type : ''} adminOnly={false}/>} />
         <Route path="/model/view-model" element={<ViewModelMain />} />
         <Route path="/admin-dashboard" element={<PrivateRoute element={AdminDashboard} user={user} isAdmin={user ? user.type : ''} adminOnly={true}/>} />
         <Route path="*" element={<NotFound />} />

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../style.css'; // Ensure you have a CSS file for custom styling
+import '../style.css';
 import Purchase from './modal/Purchase';
 
-function ResultReport({ category, keyword }) {
+function ResultReport({ filters, keyword }) {
     const [reports, setReports] = useState([]);
     const [filteredReports, setFilteredReports] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -14,7 +14,8 @@ function ResultReport({ category, keyword }) {
         const fetchReports = async () => {
             try {
                 const response = await axios.get('https://geoid-rest.vercel.app/paper_report');
-                setReports(response.data);
+                const publicReports = response.data.filter(report => report.access === 'public');
+                setReports(publicReports);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching report data:', error);
@@ -26,26 +27,46 @@ function ResultReport({ category, keyword }) {
     }, []);
 
     useEffect(() => {
-        const categoryFilter = category ? category.toLowerCase() : '';
-        const keywordFilter = keyword ? keyword.toLowerCase() : '';
-
         let filtered = reports;
 
-        if (categoryFilter) {
-            filtered = filtered.filter(report => report.category.toLowerCase() === categoryFilter);
+        // if (filters.country) {
+        //     filtered = filtered.filter(report => report.country?.toLowerCase() === filters.country.toLowerCase());
+        // }
+        // if (filters.state) {
+        //     filtered = filtered.filter(report => report.state?.toLowerCase() === filters.state.toLowerCase());
+        // }
+        if (filters.category === 'geology') {
+            filtered = filtered.filter(report => report.category?.toLowerCase().startsWith('g'));
+        }
+        if (filters.discipline) {
+            console.log(filtered)
+            filtered = filtered.filter(report => report.category?.toLowerCase() === filters.discipline.toLowerCase());
+        }
+        if (filters.majorLithology) {
+            filtered = filtered.filter(report => report.majorLithology?.toLowerCase() === filters.majorLithology.toLowerCase());
+        }
+        if (filters.rockType) {
+            filtered = filtered.filter(report => report.rockType?.toLowerCase() === filters.rockType.toLowerCase());
+        }
+        if (filters.formation) {
+            filtered = filtered.filter(report => report.formation?.toLowerCase() === filters.formation.toLowerCase());
+        }
+        if (filters.age) {
+            filtered = filtered.filter(report => report.age?.toLowerCase() === filters.age.toLowerCase());
         }
 
-        if (keywordFilter) {
+        if (keyword) {
+            const keywordLower = keyword.toLowerCase();
             filtered = filtered.filter(report =>
-                report.title.toLowerCase().includes(keywordFilter) ||
-                report.author.toLowerCase().includes(keywordFilter) ||
-                report.category.toLowerCase().includes(keywordFilter) ||
-                report.tags.some(tag => tag.toLowerCase().includes(keywordFilter))
+                report.title.toLowerCase().includes(keywordLower) ||
+                report.author.toLowerCase().includes(keywordLower) ||
+                report.category.toLowerCase().includes(keywordLower) ||
+                report.tags.some(tag => tag.toLowerCase().includes(keywordLower))
             );
         }
 
         setFilteredReports(filtered);
-    }, [category, reports]);
+    }, [filters, keyword, reports]);
 
     const handlePurchaseClick = (report) => {
         setSelectedReport(report);
@@ -63,7 +84,7 @@ function ResultReport({ category, keyword }) {
 
     return (
         <div className="artifacts-result-page">
-            <h1 style={{ textAlign: 'left' }}>Reports: {filteredReports.length} result{filteredReports.length !== 1 ? 's' : ''} found</h1>
+            <p style={{ textAlign: 'left' }}>Reports: {filteredReports.length} result{filteredReports.length !== 1 ? 's' : ''} found</p>
             <div className="reports-list">
                 {filteredReports.map((report, index) => (
                     <div className="report-card" key={index}>
