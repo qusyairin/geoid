@@ -23,6 +23,7 @@ function Home() {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [modelData, setModelData] = useState([])
     const [reportData, setReportData] = useState([])
+    const [mediaData, setMediaData] = useState([])
     const [loading, setLoading] = useState(false);
     const [filters, setFilters] = useState({
         country: "",
@@ -113,8 +114,10 @@ function Home() {
                 setLoading(true)
                 const modelsResponse = await fetch('https://geoid-rest.vercel.app/models');
                 const reportsResponse = await fetch('https://geoid-rest.vercel.app/paper_report');
+                const mediasResponse = await fetch('https://geoid-rest.vercel.app/media');
                 const modelRes = await modelsResponse.json()
                 const reportRes = await reportsResponse.json()
+                const mediaRes = await mediasResponse.json()
 
                 const filteredModelData = modelRes.filter(model => 
                     model.data && 
@@ -132,10 +135,17 @@ function Home() {
                     !isNaN(parseFloat(report.long))
                 );
 
-                console.log(filteredReportData)
+                const filteredMediaData = mediaRes.filter(media => 
+                    media && 
+                    media.lat && 
+                    media.long &&
+                    !isNaN(parseFloat(media.lat)) &&
+                    !isNaN(parseFloat(media.long))
+                );
                 
                 setModelData(filteredModelData)
                 setReportData(filteredReportData)
+                setMediaData(filteredMediaData)
                 
             } catch (error) {
                 console.error('Error fetching user uploads:', error);
@@ -309,6 +319,95 @@ function Home() {
         );
     };
 
+    const MediaMarker = ({ category, title, file }) => {
+        const [isHovering, setIsHovering] = useState(false);
+        let categoryLabel = 'Unknown Category'
+
+        const handleClick = () => {
+            if (file) {
+                window.open(file, '_blank');
+                console.log('Clicked file:', file);
+            }
+        };
+
+        const backgroundColor = category
+            ? category.toLowerCase() === 'archaeology'
+            ? "orange"
+            : "yellow"
+            : "gray";
+
+        if (category.toLowerCase() ===  'archaeology'){
+            categoryLabel = 'Archaelogy'
+        } else if (category ===  'gAll'){
+            categoryLabel = 'Geology - All'
+        } else if (category ===  'gGeneral'){
+            categoryLabel = 'Geology - General'
+        } else if (category ===  'gONG'){
+            categoryLabel = 'Geology - Oil & Gas'
+        } else if (category ===  'gMining'){
+            categoryLabel = 'Geology - Mining'
+        } else if (category ===  'gEngineering'){
+            categoryLabel = 'Geology - Engineering/Geotechnical'
+        } else if (category ===  'gEnvironment'){
+            categoryLabel = 'Geology - Environment'
+        }
+
+        return (
+            <div
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
+                onClick={handleClick}
+                style={{
+                    position: 'relative',
+                    cursor: 'pointer',
+                }}
+            >
+                <div
+                    style={{
+                        width: 0,
+                        height: 0,
+                        borderLeft: '7px solid transparent',
+                        borderRight: '7px solid transparent',
+                        borderBottom: `14px solid black`,
+                        position: 'relative',
+                    }}
+                >
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '2px',
+                            left: '-6px',
+                            width: 0,
+                            height: 0,
+                            borderLeft: '6px solid transparent',
+                            borderRight: '6px solid transparent',
+                            borderBottom: `12px solid ${backgroundColor}`,
+                        }}
+                    />
+                </div>
+                {isHovering && (
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '-40px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            backgroundColor: 'white',
+                            padding: '5px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                            zIndex: 1000,
+                            whiteSpace: 'nowrap',
+                        }}
+                    >
+                        <div><strong>{title}</strong></div>
+                        <div><strong>Multimedia</strong></div>
+                        <div>{categoryLabel}</div>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     const Marker = ({ text, path, type }) => (
         <div
             style={{
@@ -367,7 +466,7 @@ function Home() {
             >
                 {modelData.map((marker) => (
                     <ModelMarker
-                        category={marker.data.type}
+                        category={marker.data.discipline}
                         title={marker.name}
                         model={marker.model}
                         data={marker.data}
@@ -384,6 +483,17 @@ function Home() {
                         lat={parseFloat(marker.lat)}
                         lng={parseFloat(marker.long)}
                         file={marker.file}
+                    />
+                ))}
+
+                {mediaData.map((marker, index) => (
+                    <MediaMarker
+                        key={index}
+                        category={marker.category}
+                        title={marker.name}
+                        lat={parseFloat(marker.lat)}
+                        lng={parseFloat(marker.long)}
+                        file={marker.imgSrc}
                     />
                 ))}
             </GoogleMap>

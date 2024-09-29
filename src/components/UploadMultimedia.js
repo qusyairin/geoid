@@ -114,7 +114,11 @@ function UploadMultimedia() {
             link: "#",
             category: discipline === 'archaeology' ? 'Archaeology' : 'Geology',
             userId: userId,
-            access: access
+            access: access,
+            state: selectedState,
+            districts: selectedDistrict,
+            lat: latitude.toString(),
+            long: longitude.toString()
           };
 
           return axios.post('https://geoid-rest.vercel.app/media', multimediaData);

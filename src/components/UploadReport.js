@@ -185,6 +185,8 @@ function UploadReport() {
             author: authors,
             year: publicationYear,
             linkSource: new URL(redirectLink).hostname,
+            state: selectedState,
+            districts: selectedDistrict,
             description: description,
             accessionNumber: accessionNumber,
             publicationType: publicationType,

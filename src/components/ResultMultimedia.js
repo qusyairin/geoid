@@ -4,7 +4,7 @@ import "../style.css";
 import ImageViewer from 'react-simple-image-viewer';
 import VideoViewer from './modal/VideoViewer';
 
-function ResultMultimedia({ filters, keyword }) {
+function ResultMultimedia({ filters, keyword, onOpen }) {
     const [currentMedia, setCurrentMedia] = useState(0);
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
@@ -32,30 +32,35 @@ function ResultMultimedia({ filters, keyword }) {
     useEffect(() => {
         let filtered = multimediaItems;
 
-        if (filters.country) {
-            filtered = filtered.filter(media => media.country?.toLowerCase() === filters.country.toLowerCase());
-        }
+        // if (filters.country) {
+        //     filtered = filtered.filter(media => media.country?.toLowerCase() === filters.country.toLowerCase());
+        // }
         if (filters.state) {
             filtered = filtered.filter(media => media.state?.toLowerCase() === filters.state.toLowerCase());
         }
         if (filters.category) {
-            filtered = filtered.filter(media => media.category?.toLowerCase() === filters.category.toLowerCase());
+
+            if (filters.category.toLowerCase() !== 'archaeology'){
+                filtered = filtered.filter(media => media.category?.toLowerCase() !== "archaeology");
+            } else {
+                filtered = filtered.filter(media => media.category?.toLowerCase() === "archaeology");
+            }
         }
-        if (filters.majorLithology) {
-            filtered = filtered.filter(media => media.majorLithology?.toLowerCase() === filters.majorLithology.toLowerCase());
-        }
-        if (filters.discipline) {
-            filtered = filtered.filter(media => media.discipline?.toLowerCase() === filters.discipline.toLowerCase());
-        }
-        if (filters.rockType) {
-            filtered = filtered.filter(media => media.rockType?.toLowerCase() === filters.rockType.toLowerCase());
-        }
-        if (filters.formation) {
-            filtered = filtered.filter(media => media.formation?.toLowerCase() === filters.formation.toLowerCase());
-        }
-        if (filters.age) {
-            filtered = filtered.filter(media => media.age?.toLowerCase() === filters.age.toLowerCase());
-        }
+        // if (filters.majorLithology) {
+        //     filtered = filtered.filter(media => media.majorLithology?.toLowerCase() === filters.majorLithology.toLowerCase());
+        // }
+        // if (filters.discipline) {
+        //     filtered = filtered.filter(media => media.discipline?.toLowerCase() === filters.discipline.toLowerCase());
+        // }
+        // if (filters.rockType) {
+        //     filtered = filtered.filter(media => media.rockType?.toLowerCase() === filters.rockType.toLowerCase());
+        // }
+        // if (filters.formation) {
+        //     filtered = filtered.filter(media => media.formation?.toLowerCase() === filters.formation.toLowerCase());
+        // }
+        // if (filters.age) {
+        //     filtered = filtered.filter(media => media.age?.toLowerCase() === filters.age.toLowerCase());
+        // }
 
         if (keyword) {
             const keywordLower = keyword.toLowerCase();

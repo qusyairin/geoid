@@ -2,7 +2,7 @@
   "states": [
     {
       "name": "Johor",
-      "districts": ["Johor Bahru", "Muar", "Kulai", "Segamat", "Kluang", "Batu Pahat", "Pontian", "Kota Tinggi", "Ledang", "Mersing"]
+      "districts": ["Johor Bahru", "Muar", "Kulai", "Segamat", "Kluang", "Batu Pahat", "Pontian", "Kota Tinggi", "Ledang", "Mersing", "Tangkak"]
     },
     {
       "name": "Kedah",

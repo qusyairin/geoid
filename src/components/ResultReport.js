@@ -32,11 +32,14 @@ function ResultReport({ filters, keyword }) {
         // if (filters.country) {
         //     filtered = filtered.filter(report => report.country?.toLowerCase() === filters.country.toLowerCase());
         // }
-        // if (filters.state) {
-        //     filtered = filtered.filter(report => report.state?.toLowerCase() === filters.state.toLowerCase());
-        // }
+        if (filters.state) {
+            filtered = filtered.filter(report => report.state?.toLowerCase() === filters.state.toLowerCase());
+        }
         if (filters.category === 'geology') {
             filtered = filtered.filter(report => report.category?.toLowerCase().startsWith('g'));
+        }
+        if (filters.category === 'archaeology') {
+            filtered = filtered.filter(report => report.category?.toLowerCase().startsWith('a'));
         }
         if (filters.discipline) {
             console.log(filtered)
