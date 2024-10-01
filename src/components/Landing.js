@@ -28,7 +28,7 @@ function Landing() {
             <p className='system-name'>Discover Immersive Diary of The Earth</p>
             
             {/* New introduction section */}
-            <div className="intro-section">
+            {/* <div className="intro-section">
                 <h2>Welcome to GeoID</h2>
                 <p>
                     GeoID is a centralized digital platform that consolidates localized geospatial data, 
@@ -40,7 +40,7 @@ function Landing() {
                     <li>Safeguards valuables (e.g., geological heritage).</li>
                     <li>Enhances the sustainability & competitiveness of local industries.</li>
                 </ul>
-            </div>
+            </div> */}
 
             <div className='search-bar'>
                 <input type='text' 
