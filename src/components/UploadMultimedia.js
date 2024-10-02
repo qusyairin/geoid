@@ -112,7 +112,7 @@ function UploadMultimedia() {
             imgSrc: url,
             type: fileType,
             link: "#",
-            category: discipline === 'archaeology' ? 'Archaeology' : 'Geology',
+            category: discipline,
             userId: userId,
             access: access,
             state: selectedState,

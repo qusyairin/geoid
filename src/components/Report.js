@@ -72,7 +72,7 @@ function Report() {
 
     return (
         <div className="report-page">
-            <h1>Reports</h1>
+            <h1>Report</h1>
             <div className="search-container">
                 <input
                     type="text"

@@ -65,6 +65,29 @@ function UploadsModal({ isOpen, onClose, uploads, onDelete }) {
                         <p>No reports uploaded yet.</p>
                     )}
                 </div>
+                <div className="uploads-section">
+                    <h3>Multimedia</h3>
+                    {uploads.reports.length > 0 ? (
+                        <ul>
+                            {uploads.media.map((media, index) => (
+                                <li key={index}>
+                                    <span>{media.name || `Media ${index + 1}`}</span>
+                                    <button 
+                                        className="delete-button" 
+                                        onClick={() => handleDelete('media', media._id)}
+                                        aria-label="Delete media"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                        </svg>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No reports uploaded yet.</p>
+                    )}
+                </div>
                 <button className="modal-close-button" onClick={onClose}>Close</button>
             </div>
         </div>
@@ -88,7 +111,7 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [showUploadsModal, setShowUploadsModal] = useState(false);
-    const [userUploads, setUserUploads] = useState({ models: [], reports: [] });
+    const [userUploads, setUserUploads] = useState({ models: [], reports: [], media: [] });
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -142,13 +165,16 @@ function Profile() {
             const userId = savedUser ? savedUser.user._id : null;
             const modelsResponse = await fetch('https://geoid-rest.vercel.app/models');
             const reportsResponse = await fetch('https://geoid-rest.vercel.app/paper_report');
+            const mediaResponse = await fetch('https://geoid-rest.vercel.app/media');
             
             const modelsData = await modelsResponse.json();
             const reportsData = await reportsResponse.json();
+            const mediaData = await mediaResponse.json();
             const userModels = modelsData.filter(model => model.userId === userId);
             const userReports = reportsData.filter(report => report.userId === userId);
+            const userMedia = mediaData.filter(media => media.userId === userId);
 
-            setUserUploads({ models: userModels, reports: userReports });
+            setUserUploads({ models: userModels, reports: userReports, media: userMedia });
         } catch (error) {
             console.error('Error fetching user uploads:', error);
         } finally {
@@ -250,7 +276,14 @@ function Profile() {
 
     const handleDelete = async (type, id) => {
         try {
-            const endpoint = type === 'model' ? 'models' : 'paper_report';
+            let endpoint;
+            if (type === 'model'){
+                endpoint = 'models'
+            } else if (type === 'reports') {
+                endpoint = 'paper_report'
+            } else if (type === 'media') {
+                endpoint = 'media'
+            }
             const response = await fetch(`https://geoid-rest.vercel.app/${endpoint}/${id}`, {
                 method: 'DELETE',
             });

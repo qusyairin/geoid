@@ -35,7 +35,7 @@ function Service() {
 
     return (
         <div className="report-page">
-            <h1>Service / Training</h1>
+            <h1>Activities</h1>
             <div className="search-container">
                 <input type="text" placeholder="Search Service / Training" className="search-bar" />
                 <button className="search-button">

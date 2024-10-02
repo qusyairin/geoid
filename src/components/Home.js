@@ -35,6 +35,9 @@ function Home() {
         formation: "",
         age: ""
     });
+    const [filteredModelData, setFilteredModelData] = useState([]);
+    const [filteredReportData, setFilteredReportData] = useState([]);
+    const [filteredMediaData, setFilteredMediaData] = useState([]);
 
     const markerData = [
         {
@@ -71,7 +74,9 @@ function Home() {
             formation: "",
             age: ""
         });
-        setFilteredMarker(markerData);
+        setFilteredModelData(modelData);
+        setFilteredReportData(reportData);
+        setFilteredMediaData(mediaData);
         setKeyword('');
         navigate('/home');
     };
@@ -124,7 +129,8 @@ function Home() {
                     model.data.latitude && 
                     model.data.longitude &&
                     !isNaN(parseFloat(model.data.latitude)) &&
-                    !isNaN(parseFloat(model.data.longitude))
+                    !isNaN(parseFloat(model.data.longitude)) &&
+                    model.access === 'public'
                 );
 
                 const filteredReportData = reportRes.filter(report => 
@@ -132,7 +138,8 @@ function Home() {
                     report.lat && 
                     report.long &&
                     !isNaN(parseFloat(report.lat)) &&
-                    !isNaN(parseFloat(report.long))
+                    !isNaN(parseFloat(report.long)) &&
+                    report.access === 'public'
                 );
 
                 const filteredMediaData = mediaRes.filter(media => 
@@ -140,12 +147,18 @@ function Home() {
                     media.lat && 
                     media.long &&
                     !isNaN(parseFloat(media.lat)) &&
-                    !isNaN(parseFloat(media.long))
+                    !isNaN(parseFloat(media.long)) &&
+                    media.access === 'public'
                 );
                 
                 setModelData(filteredModelData)
                 setReportData(filteredReportData)
                 setMediaData(filteredMediaData)
+                
+                // Set filtered data initially
+                setFilteredModelData(filteredModelData)
+                setFilteredReportData(filteredReportData)
+                setFilteredMediaData(filteredMediaData)
                 
             } catch (error) {
                 console.error('Error fetching user uploads:', error);
@@ -161,16 +174,47 @@ function Home() {
         setFilters(newFilters);
         setShowResults(true);
 
-        // Filter markers based on the new filters
-        const filtered = markerData.filter(marker => {
-            if (newFilters.country && marker.country !== newFilters.country) return false;
-            if (newFilters.state && marker.state !== newFilters.state) return false;
-            if (newFilters.category && marker.type !== newFilters.category) return false;
-            // Add more filter conditions as needed
+        // Filter model data
+        const filteredModels = modelData.filter(model => {
+            if (newFilters.state && model.data.state.toLowerCase() !== newFilters.state.toLowerCase()) return false;
+            if (newFilters.category) {
+                if (newFilters.category === 'geology') {
+                    if (model.data.type === 'Archaeology') return false;
+                } else if (newFilters.category === 'archaeology') {
+                    if (model.data.type === 'Geology') return false;
+                }
+            }
+            if (newFilters.discipline && model.data.discipline !== newFilters.discipline) return false;
             return true;
         });
+        setFilteredModelData(filteredModels);
 
-        setFilteredMarker(filtered);
+        const filteredReports = reportData.filter(report => {
+            if (newFilters.state && report.state.toLowerCase() !== newFilters.state.toLowerCase()) return false;
+            if (newFilters.category) {
+                if (newFilters.category === 'geology') {
+                    if (report.category === 'Archaeology') return false;
+                } else if (newFilters.category === 'archaeology') {
+                    if (report.category !== 'Archaeology') return false;
+                }
+            }
+            return true;
+        });
+        setFilteredReportData(filteredReports);
+
+        // Filter media data
+        const filteredMedia = mediaData.filter(media => {
+            if (newFilters.state && media.state.toLowerCase() !== newFilters.state.toLowerCase()) return false;
+            if (newFilters.category) {
+                if (newFilters.category === 'geology') {
+                    if (media.category === 'Archaeology') return false;
+                } else if (newFilters.category === 'archaeology') {
+                    if (media.category !== 'Archaeology') return false;
+                }
+            }
+            return true;
+        });
+        setFilteredMediaData(filteredMedia);
     };
 
     const ModelMarker = ({category, title, model, data}) => {
@@ -338,6 +382,8 @@ function Home() {
 
         if (category.toLowerCase() ===  'archaeology'){
             categoryLabel = 'Archaelogy'
+        } else if (category.toLowerCase() ===  'geology'){
+            categoryLabel = 'Geology'
         } else if (category ===  'gAll'){
             categoryLabel = 'Geology - All'
         } else if (category ===  'gGeneral'){
@@ -464,7 +510,7 @@ function Home() {
                 onGoogleApiLoaded={onGoogleApiLoaded}
                 onChange={(map) => console.log('Map moved', map)}
             >
-                {modelData.map((marker) => (
+                {filteredModelData.map((marker) => (
                     <ModelMarker
                         category={marker.data.discipline}
                         title={marker.name}
@@ -475,7 +521,7 @@ function Home() {
                     />
                 ))}
 
-                {reportData.map((marker, index) => (
+                {filteredReportData.map((marker, index) => (
                     <ReportMarker
                         key={index}
                         category={marker.category}
@@ -486,7 +532,7 @@ function Home() {
                     />
                 ))}
 
-                {mediaData.map((marker, index) => (
+                {filteredMediaData.map((marker, index) => (
                     <MediaMarker
                         key={index}
                         category={marker.category}
