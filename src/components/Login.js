@@ -1,110 +1,87 @@
-import { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../style.css';
+import axios from 'axios';
+import '../assets/login.css';
 
-function Login({ onLogin }) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false); // Add loading state
-    const navigate = useNavigate();
+const Login = ({ onLogin }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        setError(null);
-        setLoading(true); // Start loading
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-        try {
-            const response = await axios.post('https://geoid-rest.vercel.app/login', {
-                username,
-                password
-            });
+    try {
+      const response = await axios.post('https://geoid-rest.vercel.app/login', {
+        username,
+        password
+      });
 
-            const userData = response.data;
+      const userData = response.data;
 
-            localStorage.setItem('user', JSON.stringify(userData)); // Save user data to localStorage
-            onLogin(userData); // Notify App component of the login
-            navigate('/home');
-        } catch (err) {
-            setError('Login failed. Please check your credentials.');
-        } finally {
-            setLoading(false); // Stop loading
-        }
-    };
+      localStorage.setItem('user', JSON.stringify(userData));
+      onLogin(userData);
+      navigate('/');
+    } catch (err) {
+      setError('Login failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className='login-page'>
-            {loading && (
-                <div className="loading-overlay">
-                    <div className="spinner"></div>
-                </div>
-            )}
-            <div className='login-menu'>
-                <h1>GeoID</h1>
-                <h4>Enter your details to Log In</h4>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <div style={{width: "95%"}}>
-                    <input
-                        className='input'
-                        type='text'
-                        placeholder='Username'
-                        style={{
-                            display: 'block',
-                            width: '100%',
-                            marginBottom: '1.5rem',
-                            padding: '10px',
-                            fontSize: '16px'
-                        }}
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <input
-                        className='input'
-                        type='password'
-                        placeholder='Password'
-                        style={{
-                            display: 'block',
-                            width: '100%',
-                            marginBottom: '1.5rem',
-                            padding: '10px',
-                            fontSize: '16px'
-                        }}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <div onClick={handleLogin} className="login-button" style={{ marginTop: '20px', width: '100%' }}>
-                    <button
-                        style={{
-                            width: '100%',
-                            padding: '10px',
-                            fontSize: '16px',
-                            backgroundColor: '#2a699d',
-                            color: 'white',
-                            border: 'none',
-                            cursor: 'pointer',
-                            borderRadius: '5px'
-                        }}
-                    >
-                        Log In
-                    </button>
-                </div>
-                <span
-                    onClick={() => navigate('/register')}
-                    style={{ 
-                        marginTop: '20px', 
-                        color: '#2a699d', 
-                        cursor: 'pointer', 
-                        display: 'block', 
-                        textAlign: 'center' 
-                    }}
-                >
-                    Register new account
-                </span>
-            </div>
+  return (
+    <div className="login-page-container">
+      <div className="login-card">
+        <div className="login-content">
+          <div className="login-left-section">
+            <h2 className="login-title" style={{color: 'white'}}>Welcome Back to GeoID!</h2>
+            <p className="login-subtitle" style={{color: 'white'}}>Enter your log in details to continue your journey!</p>
+            <p className="login-subtitle" style={{color: 'white'}}>New User?</p>
+            <button className="signup-button" onClick={() => navigate('/register')}>Sign Up!</button>
+          </div>
+          <div className="login-right-section">
+            <h2 className="login-title">Log In</h2>
+            <p className="login-subtitle">Enter your log in details.</p>
+            {error && <p className="login-error-message">{error}</p>}
+            <form onSubmit={handleLogin}>
+              <input
+                className="login-input"
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <input
+                className="login-input"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button className="login-button-page" type="submit" disabled={loading}>
+                {loading ? 'Logging in...' : 'Log In'}
+              </button>
+
+              <div class="line">--------------or--------------</div>
+
+              <button className="guest-button-page" onClick={() => navigate('/')}>Continue as guest</button>
+            </form>
+          </div>
         </div>
-    );
-}
+      </div>
+      {loading && (
+        <div className="login-loading-overlay">
+          <div className="login-spinner"></div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Login;

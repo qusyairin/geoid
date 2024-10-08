@@ -80,7 +80,7 @@ function Artifacts() {
                 <input
                     type="text"
                     placeholder="Search name, location, category, keyword, type & etc..."
-                    className="search-bar"
+                    className="search-bar-page"
                     value={searchKeyword}
                     onChange={handleSearch}
                 />

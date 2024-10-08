@@ -1,0 +1,335 @@
+.landing-container {
+color: #333;
+}
+
+.hero {
+position: relative;
+padding: 50px;
+background-color: white;
+min-height: 400px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.hero h1 {
+    font-size: 3.5em;
+    max-width: 50%;
+    margin-bottom: 20px;
+    z-index: 500;
+    text-align: left;
+    position: relative;
+    left: 70px;
+}
+
+.explore-btn {
+background-color: #FFA500;
+color: white;
+border: none;
+padding: 10px 20px;
+cursor: pointer;
+align-self: flex-start;
+z-index: 500;
+border-radius: 60px;
+left: 70px;
+position: relative;
+}
+
+.triangle {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  
+  .triangle1 {
+    top: 10%;
+    left: 5%;
+    width: 50px;
+    height: 50px;
+    background-color: #FF9100;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transform: rotate(-30deg);
+  }
+  
+  .triangle2 {
+    top: 65%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #00712D;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    transform: rotate(45deg);
+    }
+  
+    .triangle3 {
+        top: 30%;
+        right: -0.7%;
+        width: 120px;
+        height: 120px;
+        background-color: orange;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        transform: rotate(-30deg);
+    }
+  
+    .triangle4 {
+        bottom: 20%;
+        right: 10%;
+        width: 10px;
+        height: 10px;
+        background-color: #FFA07A;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        transform: rotate(30deg);
+    }
+
+.hero-image {
+    position: absolute;
+    right: 100px;
+    width: 550px;
+    height: 550px;
+}
+
+.hero-image2 {
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    top: 50px;
+    left: 0.5px;
+}
+
+.hero-image3 {
+    position: absolute;
+    width: 700px;
+    height: 400px;
+    top: 1300px;
+    right: 0;
+}
+
+.geoid {
+text-align: center;
+padding: 50px;
+background-image: url("../assets/searchhero.png");
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+.geoid h2 {
+font-size: 4em;
+margin-bottom: 10px;
+color: white;
+}
+
+.geoid p {
+    color: white;
+    font-weight: 500;
+}
+
+.search-bar {
+display: flex;
+justify-content: center;
+margin-top: 20px;
+}
+
+.search-bar input {
+width: 50em;
+padding: 10px;
+border: 1px solid #ccc;
+border-right: none;
+border-radius: 50px 0 0 50px;
+}
+
+.search-bar button {
+background-color: #FFA500;
+color: white;
+border: none;
+padding: 12px 20px;
+cursor: pointer;
+border-radius: 0 50px 50px 0;
+}
+
+.advanced-search {
+display: inline-block;
+margin-top: 10px;
+color: white;
+text-decoration: none;
+}
+
+.models {
+padding: 50px;
+text-align: center;
+}
+
+.models h2 {
+font-size: 2em;
+margin-bottom: 10px;
+}
+
+.model-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    flex-wrap: wrap; /* Allow wrapping of items */
+}
+
+.model-card {
+    perspective: 1000px; /* Add perspective to the card */
+    width: 300px; /* Set a fixed width for the card */
+    height: 400px; /* Set a fixed height for the card */
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%; /* Ensure the inner card takes full height */
+    transition: transform 0.6s; /* Smooth transition for the rotation */
+    transform-style: preserve-3d; /* Preserve 3D effect */
+}
+
+.model-card:hover .card-inner {
+    transform: rotateY(180deg); /* Rotate the card on hover */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%; /* Ensure both sides take full height */
+    backface-visibility: hidden; /* Hide the back side when facing away */
+}
+
+.card-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-size: cover; /* Ensure the background image covers the area */
+    background-position: center; /* Center the background image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+}
+
+.card-back {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff1493;
+background-image: linear-gradient(319deg, #ff1493 0%, #0000ff 37%, #ff8c00 100%);
+ /* Background color for the back side */
+    color: #fff; /* Text color */
+    transform: rotateY(180deg); /* Rotate the back side */
+    border-radius: 20px;
+    padding: 20px; /* Add some padding */
+    text-align: center; /* Center text on the back */
+}
+
+.card-image {
+    height: 350px;
+    background-color: #ddd;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    position: relative; /* Add this to position the button inside */
+}
+
+.model-card button {
+background-color: #ff1493;
+color: white;
+border: none;
+padding: 10px 30px;
+cursor: pointer;
+border-radius: 40px;
+}
+
+.model-card button:hover {
+    background-color: #920e54;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    cursor: pointer;
+    border-radius: 40px;
+    }
+
+.more-btn {
+background-color: #FFA500;
+color: white;
+border: none;
+padding: 10px 40px;
+cursor: pointer;
+margin-top: 50px;
+border-radius: 40px;
+}
+
+.upload {
+text-align: center;
+padding: 50px;
+background: rgb(2, 0, 36);
+background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 0.8) 0%,      /* Reduced opacity for the dark blue */
+    rgba(255, 145, 0, 0.8) 50%,  /* Reduced opacity for the orange */
+    rgba(0, 113, 45, 0.8) 100%   /* Reduced opacity for the green */
+);
+}
+
+.upload h2 {
+font-size: 1.5em;
+margin-bottom: 10px;
+}
+
+.register-btn {
+background-color: #FF0000;
+color: white;
+border: none;
+padding: 10px 20px;
+cursor: pointer;
+margin-top: 20px;
+border-radius: 40px;
+}
+
+@media (max-width: 768px) {
+    .hero-image {
+        display: none;
+    }
+
+    .hero-image2 {
+        position: absolute;
+        width: 400px;
+        height: 450px;
+        top: 50px;
+        left: 0.5px;
+    }
+    
+    .hero h1 {
+        font-size: 3em;
+        max-width: 50%;
+        margin-bottom: 20px;
+        z-index: 500;
+        text-align: justify;
+        left: 0;
+    }
+    
+    .explore-btn {
+    background-color: #FFA500;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: flex-start;
+    z-index: 500;
+    border-radius: 60px;
+    left: 0;
+    position: relative;
+    }
+
+    .model-cards {
+        gap: 50px;
+    }
+}
+
+.view-button {
+    background-color: #4CAF50; /* Keep the button green */
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Adjust padding for the button */
+    cursor: pointer;
+    border-radius: 5px; /* Add some border radius */
+    margin-top: 10px; /* Add margin to separate from text */
+}

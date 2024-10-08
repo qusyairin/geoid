@@ -1,0 +1,265 @@
+.register-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px; /* Added padding for mobile */
+  }
+
+  .login-button-register {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: white;
+    border: white solid 1px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  .login-button-register:hover{
+    background-color: #45a049;
+  }
+  
+  .register-card {
+    display: flex;
+    width: 100%; /* Full width for mobile */
+    max-width: 1000px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column; /* Column layout for mobile */
+  }
+  
+  .register-left-section {
+    background-image: url('../assets/registerBg.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    width: 100%; /* Full width for mobile */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  .register-right-section {
+    width: 100%; /* Full width for mobile */
+    padding: 2rem;
+    border-radius: 8px;
+  }
+  
+  .register-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .register-subtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .register-input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .register-role-selection {
+    margin-bottom: 20px;
+  }
+  
+  .register-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .register-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4caf50;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Modal styles can be the same as used for login modals */
+  
+  /* Media Queries for Mobile Responsiveness */
+  @media (min-width: 768px) {
+    .register-content {
+      flex-direction: row; /* Switch back to row layout for larger screens */
+    }
+  
+    .register-left-section,
+    .register-right-section {
+      /* width: 50%; Split width for larger screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .register-left-section,
+    .register-right-section {
+      /* width: 100%; Full width for mobile */
+      padding: 1rem; /* Less padding for mobile */
+    }
+  
+    .register-title {
+      font-size: 20px; /* Slightly smaller title for mobile */
+    }
+  
+    .register-subtitle {
+      font-size: 14px; /* Slightly smaller subtitle for mobile */
+    }
+  
+    .register-button {
+      padding: 10px; /* Smaller button padding for mobile */
+    }
+  }
+
+  .modal-register {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other elements */
+  }
+  
+  .modal-content-register {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px; /* Set a max width for the modal */
+    width: 90%; /* Full width on small screens */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text for a better appearance */
+  }
+  
+  .modal-title {
+    font-size: 24px; /* Title font size */
+    margin-bottom: 10px;
+    color: #333; /* Title color */
+  }
+  
+  .modal-message {
+    font-size: 16px; /* Message font size */
+    margin-bottom: 20px;
+    color: #555; /* Message color */
+  }
+  
+  .modal-button-register {
+    background-color: #4caf50; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .modal-button-register:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+  
+  /* Optional: Responsive adjustments */
+  @media (max-width: 600px) {
+    .modal-content-register {
+      padding: 15px; /* Reduced padding for smaller screens */
+    }
+  }
+
+  .modal-success {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other elements */
+  }
+  
+  .modal-content-success {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px; /* Set a max width for the modal */
+    width: 90%; /* Full width on small screens */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Center text for a better appearance */
+  }
+  
+  .modal-title-success {
+    font-size: 24px; /* Title font size */
+    margin-bottom: 10px;
+    color: #333; /* Title color */
+  }
+  
+  .modal-message-success {
+    font-size: 16px; /* Message font size */
+    margin-bottom: 20px;
+    color: #555; /* Message color */
+  }
+  
+  .modal-button-success {
+    background-color: #4caf50; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .modal-button-success:hover {
+    background-color: #45a049; /* Darker shade on hover */
+  }
+  
+  /* Optional: Responsive adjustments */
+  @media (max-width: 600px) {
+    .modal-content-success {
+      padding: 15px; /* Reduced padding for smaller screens */
+    }
+  }
+  
+  

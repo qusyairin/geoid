@@ -1,0 +1,162 @@
+.navbar-component .navbar {
+    background-color: white;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-component .navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-component .logo {
+    display: flex;
+    flex: 1;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar-component .nav-links {
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-component .nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    transition: color 0.3s;
+}
+
+.navbar-component .nav-links a:hover {
+    color: #00712D;
+}
+
+.navbar-component .login-button {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-component .user-dropdown {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar-component .profile-dropdown {
+    border-radius: 100%;
+    background-color: black;
+    width: 100px;
+    height: 100px;
+}
+
+.navbar-component .username {
+    margin-right: 3px;
+    color: black;
+    cursor: pointer;
+}
+
+.navbar-component .logged-button {
+    display: flex;
+}
+
+.navbar-component .logged-button button {
+    background-color: #00712D;
+    border: 1px solid #00712D;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 40px;
+    width: 10rem;
+}
+
+.navbar-component .logged-button button:hover,
+.navbar-component .login-button button:hover {
+    background-color: #01401a;
+}
+
+.navbar-component .login-button button {
+    background-color: #00712D;
+    border: 1px solid #00712D;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 40px;
+    width: 10rem;
+}
+
+/* Burger Menu Styles */
+.navbar-component .menu {
+    display: none; /* Hide by default */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar-component .menu {
+        display: block; /* Show burger button on small screens */
+    }
+
+    .navbar-component .logo {
+        margin-bottom: 8px;
+    }
+
+    .navbar-component .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar-component .nav-links.open {
+        display: flex; /* Show when burger menu is open */
+    }
+
+    .navbar-component .login-button {
+        justify-content: center;
+    }
+
+    .navbar-component .navbar-container {
+        flex-direction: column;
+    }
+}
+
+.dropdown-menu {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    padding: 10px; /* Optional: Add some padding */
+    background-color: white; /* Optional: Set background color */
+    border-radius: 5px; /* Optional: Add border radius */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
+}
+
+.dropdown-menu button {
+    margin: 5px 0; /* Add some margin between buttons */
+    padding: 10px 20px; /* Add padding for buttons */
+    background-color: #00712D; /* Set button background color */
+    color: white; /* Set button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.dropdown-menu button:hover {
+    background-color: #005f23; /* Darken button on hover */
+}
