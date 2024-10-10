@@ -655,10 +655,11 @@
     height: 20px;
 }
 
-.artifacts-grid {
+.artifacts-grid-model {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    width: 100%;
 }
 
 .artifact-card {
@@ -683,6 +684,7 @@
 .artifact-info {
     padding: 15px;
     text-align: center;
+    height: 20%;
 }
 
 .artifact-info h3 {
@@ -898,6 +900,16 @@
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.model-page {
+    display: flex;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
 }
 
 .reports-list {

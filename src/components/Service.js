@@ -39,7 +39,7 @@ function Service() {
             <div className="search-container">
                 <input type="text" placeholder="Search Service / Training" className="search-bar-page" />
             </div>
-            <div className="artifacts-grid">
+            <div className="artifacts-grid-model">
                 {artifacts.map((artifact, index) => (
                     <div className="multimedia-card" key={index} onClick={() => openImageViewer(index)} >
                         <img src={artifact.imgSrc} alt={artifact.name} className="multimedia-image" key={index}/>

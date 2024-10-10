@@ -12,6 +12,84 @@ flex-direction: column;
 justify-content: center;
 }
 
+.filterMenuBox {
+    background-color: white;
+    border: 1px #ccc solid;
+    width: 250px;
+    border-radius: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.hero-model {
+    position: relative;
+    padding: 50px;
+    background-color: white;
+    min-height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("../assets/modelBg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-model h1 {
+    font-size: 3em;
+    color: white;
+}
+
+.hero-model p {
+    color: white;
+}
+
+.hero-report {
+    position: relative;
+    padding: 50px;
+    background-color: white;
+    min-height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("../assets/reportBg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-report h1 {
+    font-size: 3em;
+    color: white;
+}
+
+.hero-report p {
+    color: white;
+}
+
+.hero-media {
+    position: relative;
+    padding: 50px;
+    background-color: white;
+    min-height: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("../assets/mediaBg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-media h1 {
+    font-size: 3em;
+    color: white;
+}
+
+.hero-media p {
+    color: white;
+}
+
 .hero h1 {
     font-size: 3.5em;
     max-width: 50%;
@@ -284,8 +362,31 @@ margin-top: 20px;
 border-radius: 40px;
 }
 
+.filterMenuMobile{
+    display: none;
+}
+
 @media (max-width: 768px) {
     .hero-image {
+        display: none;
+    }
+
+    .model-page {
+        display: block;
+    }
+
+    .filterMenuMobile {
+        display: block;
+        background-color: white;
+        border: 1px #ccc solid;
+        border-radius: 40px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .filterMenuBox {
         display: none;
     }
 
@@ -331,5 +432,45 @@ border-radius: 40px;
     padding: 10px 20px; /* Adjust padding for the button */
     cursor: pointer;
     border-radius: 5px; /* Add some border radius */
-    margin-top: 10px; /* Add margin to separate from text */
+    margin-top: 10px;
+}
+
+.view-button-model {
+    background-color: #4CAF50; /* Keep the button green */
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Adjust padding for the button */
+    cursor: pointer;
+    border-radius: 5px; /* Add some border radius */
+    margin-top: 15px;
+}
+
+.reset-btn-model {
+    background-color: transparent;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 500;
+    border-radius: 60px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.reset-btn-model:hover {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.apply-btn-model {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 500;
+    border-radius: 60px;
+    margin-top: 10px;
+    width: 100%;
 }
